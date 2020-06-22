@@ -1,0 +1,125 @@
+{% set VocabularyHeaderModel = 'Project\\Base\\Model\\VocabularyHeaderModel' %}
+{% set ListController = 'Project\\Base\\Admin\\Controller\\Vocabulary\\ListController'%}
+{% set form  = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{ form.start }}
+                    <div class="form-horizontal">
+                        {{ form.fieldsets.vocabularyHeader.elements.vocabularyHeaderId | saferaw }}
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.vocabularyHeader.elements.machineName.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'machineName')}}
+                                            {% if form.fieldsets.vocabularyHeader.elements.machineName.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{form.fieldsets.vocabularyHeader.elements.machineName|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.vocabularyHeader.elements.machineName.error|saferaw}}
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.vocabularyHeader.elements.name.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'name')}}
+                                            {% if form.fieldsets.vocabularyHeader.elements.name.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{form.fieldsets.vocabularyHeader.elements.name|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.vocabularyHeader.elements.name.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.vocabularyHeader.elements.comment.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'comment')}}
+                                            {% if form.fieldsets.vocabularyHeader.elements.comment.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{form.fieldsets.vocabularyHeader.elements.comment|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.vocabularyHeader.elements.comment.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.vocabularyHeader.elements.showPriority.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'showPriority')}}
+                                            {% if form.fieldsets.vocabularyHeader.elements.showPriority.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{form.fieldsets.vocabularyHeader.elements.showPriority|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.vocabularyHeader.elements.showPriority.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            {{ self.containers.SubForm.content | saferaw }}
+                        </fieldset>
+
+                        <hr class="m-t-20 m-b-40">
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {% do form.end %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

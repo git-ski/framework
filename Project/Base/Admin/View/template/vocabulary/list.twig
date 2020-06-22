@@ -1,0 +1,81 @@
+{% set RegisterController = 'Project\\Base\\Admin\\Controller\\Vocabulary\\RegisterController' %}
+{% set EditController = 'Project\\Base\\Admin\\Controller\\Vocabulary\\EditController' %}
+{% set DeleteController = 'Project\\Base\\Admin\\Controller\\Vocabulary\\DeleteController' %}
+{% set VocabularyHeaderModel = 'Project\\Base\\Model\\VocabularyHeaderModel' %}
+{% set form  = self.form %}
+{% set ApiListController = 'Project\\Base\\Api\\Controller\\AdminVocabularyListController' %}
+{{ 'FlashMessage' | flash | tf | alert }}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                {{ form.start }}
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <div class="form-line">
+                            {{ form.fieldsets.vocabularyHeader.elements.keyword | saferaw }}
+                        </div>
+                    </div>
+                    {% if self.Router.linkto(RegisterController) %}
+                    <div class="col-sm-3">
+                        <div class="text-right">
+                            <a href="{{ self.Router.linkto(RegisterController) }}" class="btn btn-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i> 新規作成</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-2">{{ form.elements.submit.with({class : 'btn btn-block btn-primary'}) | saferaw }}</div>
+                    <div class="col-sm-5"></div>
+                </div>
+                {{ form.end}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="body">
+                <table width="100%"
+                    class="table color-table info-table dataTables"
+                    data-wrapper="section#main"
+                    data-form="{{ form.id }}"
+                    data-fieldset="{{ form.fieldsets.vocabularyHeader.name }}"
+                    data-api="{{ self.Router.linkto(ApiListController) }}"
+                    data-orderby="{{ orderBy | json_encode() }}">
+                    <thead>
+                        <tr>
+                            <th data-sort="machineName">{{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'machineName') }}</th>
+                            <th data-sort="name">{{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'name') }}</th>
+                            <th data-sort="comment">{{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'comment') }}</th>
+                            <th data-sort="showPriority">{{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'showPriority') }}</th>
+                            <th class="col-md-2">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, VocabularyHeader in vocabularyHeader %}
+                            <tr class="{{ index % 2 ? 'even' : 'odd' }}">
+                                <td>{{ VocabularyHeader.machineName}}</td>
+                                <td>{{ VocabularyHeader.name}}</td>
+                                <td>{{ VocabularyHeader.comment}}</td>
+                                <td>{{ VocabularyHeader.showPriority}}</td>
+                                <td class="center">
+                                    {% if self.Router.linkto(EditController) %}
+                                        <a href="{{ self.Router.linkto(EditController, VocabularyHeader.vocabularyHeaderId) }}" class="btn btn-primary"> 編集</a>
+                                    {% endif %}
+                                    {% if self.Router.linkto(DeleteController) %}
+                                        <a href="{{ self.Router.linkto(DeleteController, VocabularyHeader.vocabularyHeaderId) }}" class="btn btn-danger"> 削除</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row">
+                    {{ self.getContainer('Paginator').getContent() | saferaw }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,221 @@
+{% set VocabularyHeaderModel = 'Project\\Base\\Model\\VocabularyHeaderModel' %}
+{% set VocabularyDetailModel = 'Project\\Base\\Model\\VocabularyDetailModel' %}
+{% set ListController = 'Project\\Base\\Admin\\Controller\\Vocabulary\\ListController'%}
+{% set form  = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    {{ form.start }}
+                    <div class="form-horizontal">
+                    {{ form.fieldsets.vocabularyHeader.elements.vocabularyHeaderId | saferaw }}
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group {{ form.fieldsets.vocabularyHeader.elements.machineName.errorClass }}">
+                                    <label class="control-label col-md-3">
+                                        {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'machineName')}}
+                                        {% if  form.fieldsets.vocabularyHeader.elements.machineName.isRequired %}
+                                            <label class="error">(必須)</label>
+                                        {% endif %}
+                                    </label>
+                                    <div class="col-md-9">
+                                        <div class="form-line">
+                                            {{form.fieldsets.vocabularyHeader.elements.machineName|saferaw}}
+                                        </div>
+                                        <label class="error">
+                                            {{form.fieldsets.vocabularyHeader.elements.machineName.error|saferaw}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group {{ form.fieldsets.vocabularyHeader.elements.name.errorClass }}">
+                                    <label class="control-label col-md-3">
+                                        {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'name')}}
+                                        {% if  form.fieldsets.vocabularyHeader.elements.name.isRequired %}
+                                            <label class="error">(必須)</label>
+                                        {% endif %}
+                                    </label>
+                                    <div class="col-md-9">
+                                        <div class="form-line">
+                                            {{form.fieldsets.vocabularyHeader.elements.name|saferaw}}
+                                        </div>
+                                        <label class="error">
+                                            {{form.fieldsets.vocabularyHeader.elements.name.error|saferaw}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row repeater">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    {% set collection = form.fieldsets.vocabularyHeader.elements.vocabularyDetail %}
+                                    {% set fieldset = collection.template %}
+                                    <template data-placeholder="{{collection.options.template_placeholder}}">
+                                        <tr class="even" data-repeater-item>
+                                        <td>
+                                            {{fieldset.elements.vocabularyDetailId|saferaw}}
+                                            <div class="form-line">
+                                                {{fieldset.elements.machineName|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{fieldset.elements.machineName.error|saferaw}}
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="form-line">
+                                                {{fieldset.elements.name|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{fieldset.elements.name.error|saferaw}}
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="form-line">
+                                                {{fieldset.elements.comment|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{fieldset.elements.comment.error|saferaw}}
+                                            </label>
+                                        </td>
+                                        <td>
+                                            {{ fieldset.elements.displayFlag | saferaw }}
+                                            {{ fieldset.elements.displayFlag.error | saferaw }}
+                                            {% if form.fieldsets.vocabularyHeader.elements.vocabularyDetail.allowRemove %}
+                                            <p></p>
+                                            <input data-repeater-delete type="button" value="削除" class="btn btn-danger">
+                                            {% endif %}
+                                        </td>
+                                        </tr>
+                                    </template>
+                                    <label class="col-sm-3 control-label">
+                                        {{ VocabularyDetailModel|ProxyStatic('getPropertyLabel', 'name')}}
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <table class="table color-table info-table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>
+                                                    {{VocabularyDetailModel|ProxyStatic('getPropertyLabel', 'machineName')}}
+                                                    {% if fieldset.elements.machineName.isRequired %}
+                                                        <span class="inline"><label class="error">(必須)</label></span>
+                                                    {% endif %}
+                                                </th>
+                                                <th>
+                                                    {{VocabularyDetailModel|ProxyStatic('getPropertyLabel', 'name')}}
+                                                    {% if fieldset.elements.name.isRequired %}
+                                                        <span class="inline"><label class="error">(必須)</label></span>
+                                                    {% endif %}
+                                                </th>
+                                                <th>
+                                                    {{VocabularyDetailModel|ProxyStatic('getPropertyLabel', 'comment')}}
+                                                    {% if fieldset.elements.comment.isRequired %}
+                                                        <span class="inline"><label class="error">(必須)</label></span>
+                                                    {% endif %}
+                                                </th>
+                                                <th class="col-md-2">操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody data-repeater-list="{{form.fieldsets.vocabularyHeader.elements.vocabularyDetail}}">
+                                            {% for fieldset in form.fieldsets.vocabularyHeader.elements.vocabularyDetail.iterate %}
+                                            <tr class="even" data-repeater-item>
+                                            <td>
+                                                {{fieldset.elements.vocabularyDetailId|saferaw}}
+                                                <div class="form-line">
+                                                    {{fieldset.elements.machineName|saferaw}}
+                                                </div>
+                                                <label class="error">
+                                                    {{fieldset.elements.machineName.error|saferaw}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <div class="form-line">
+                                                    {{fieldset.elements.name|saferaw}}
+                                                </div>
+                                                <label class="error">
+                                                    {{fieldset.elements.name.error|saferaw}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <div class="form-line">
+                                                    {{fieldset.elements.comment|saferaw}}
+                                                </div>
+                                                <label class="error">
+                                                    {{fieldset.elements.comment.error|saferaw}}
+                                                </label>
+                                            </td>
+                                            <td>
+                                                {{ fieldset.elements.displayFlag | saferaw }}
+                                                {{ fieldset.elements.displayFlag.error | saferaw }}
+                                                {% if form.fieldsets.vocabularyHeader.elements.vocabularyDetail.allowRemove %}
+                                                <p></p>
+                                                <input data-repeater-delete type="button" value="削除" class="btn btn-danger">
+                                                {% endif %}
+                                            </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="col-sm-4 col-sm-offset-3">
+                                        {% if form.fieldsets.vocabularyHeader.elements.vocabularyDetail.allowAdd %}
+                                        <label><input data-repeater-create type="button" value="新規作成" class="btn btn-block btn-primary"></label>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group {{ form.fieldsets.vocabularyHeader.elements.comment.errorClass }}">
+                                    <label class="control-label col-md-3">{{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel', 'comment')}} {% if  form.fieldsets.vocabularyHeader.elements.comment.isRequired %}<label class="error">(必須)</label>                                         {% endif %}</label>
+                                    <div class="col-md-9">
+                                        <div class="form-line">
+                                            {{form.fieldsets.vocabularyHeader.elements.comment|saferaw}}
+                                        </div>
+                                        <label class="error">
+                                            {{form.fieldsets.vocabularyHeader.elements.comment.error|saferaw}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        {{ self.containers.SubForm.content | saferaw }}
+                    </fieldset>
+
+                    <hr class="m-t-20 m-b-40">
+
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-2">
+                                {{ form.elements.submit | saferaw }}
+                            </div>
+                            <div class="col-md-5"></div>
+                        </div>
+                    </fieldset>
+                    </div>
+                    {% do form.end %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

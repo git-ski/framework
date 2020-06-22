@@ -1,0 +1,36 @@
+root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+
+[**.php]
+indent_size = 4
+insert_final_newline = true
+
+[**.js]
+indent_size = 2
+
+[**.ts]
+indent_size = 2
+
+[**.twig]
+indent_size = 2
+
+[**.ctpl]
+indent_size = 4
+insert_final_newline = true
+
+[**.xml]
+indent_size = 4
+
+[**.yml]
+indent_size = 2
+
+[composer.json]
+indent_size = 4
+
+[package.json]
+indent_size = 2

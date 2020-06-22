@@ -1,0 +1,22 @@
+<div class="text-center myadmin-alert alert-success myadmin-alert-top alert-message">
+    {{message}}
+</div>
+<style nonce="{{ self.getSecureNonce() }}">
+.myadmin-alert-top {
+    top: 40vh;
+}
+.myadmin-alert {
+    text-align: center;
+    padding: 0.7em;
+    display: inline-block;
+    margin: 0px auto;
+    position: fixed;
+    transition: all 0.5s ease-in-out 0s;
+    z-index: 1031;
+    bottom: 20px;
+    left: 0px;
+    right: 0px;
+    height: 3em;
+    color: #ffffff;
+}
+</style>

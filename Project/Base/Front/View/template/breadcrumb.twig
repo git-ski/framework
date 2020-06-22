@@ -1,0 +1,13 @@
+<div class="breadcrumb">
+      <ol>
+        {% for breadcrumbs in self.getData('breadcrumbs') %}
+            <li>
+                {% if (breadcrumbs.href) %}
+                    <a href="{{ breadcrumbs.href }}">{{ breadcrumbs.title | tf }}</a>
+                {% else %}
+                    {{ breadcrumbs.title | tf}}
+                {% endif %}
+            </li>
+        {% endfor %}
+      </ol>
+</div>

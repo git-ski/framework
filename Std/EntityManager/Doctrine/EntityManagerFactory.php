@@ -1,0 +1,106 @@
+<?php
+/**
+ * PHP version 7
+ * File EntityManagerFactory.php
+ *
+ * @category Factory
+ * @package  Std\EntityManager
+ * @author   chenhan <gpgkd906@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework.git
+ */
+declare(strict_types=1);
+namespace Std\EntityManager\Doctrine;
+
+use Std\EntityManager\FactoryInterface;
+use Std\EntityManager\RepositoryManager;
+use Framework\ConfigManager\ConfigManagerAwareInterface;
+use Framework\ObjectManager\ObjectManagerInterface;
+use Std\CacheManager\CacheManagerAwareInterface;
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Cache\Cache;
+use DoctrineModule\Cache\ZendStorageCache;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Redis;
+use Memcached;
+
+/**
+ * Factory EntityManagerFactory
+ *
+ * @category Factory
+ * @package  Std\EntityManager
+ * @author   chenhan <gpgkd906@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework.git
+ */
+class EntityManagerFactory implements
+    FactoryInterface,
+    ConfigManagerAwareInterface,
+    CacheManagerAwareInterface
+{
+    use \Framework\EventManager\EventTargetTrait;
+    use \Framework\ConfigManager\ConfigManagerAwareTrait;
+    use \Std\CacheManager\CacheManagerAwareTrait;
+
+    private $EntityManagerDecorator = null;
+
+    /**
+     * Method create
+     *
+     * @param ObjectManagerInterface $ObjectManager ObjectManager
+     *
+     * @return EntityManager $entityManager
+     */
+    public function create(ObjectManagerInterface $ObjectManager)
+    {
+        if ($this->EntityManagerDecorator === null) {
+            $config                 = $this->getConfig();
+            $connection             = $config['connection'];
+            $entityManagerConfig    = $config['entityManager'];
+            $RepositoryManager      = RepositoryManager::getSingleton();
+            $paths                  = $RepositoryManager->getEntityPath();
+            $isDevMode              = $entityManagerConfig['devMode'] ?? false;
+            $proxyDir = $entityManagerConfig['proxyDir'] ? $entityManagerConfig['proxyDir'] : __DIR__ . '/Proxy';
+            $driver         = new AnnotationDriver(new AnnotationReader(), $paths);
+            AnnotationRegistry::registerLoader('class_exists');
+            $entityConfig   = Setup::createConfiguration($isDevMode, $proxyDir, $this->getCache());
+            $entityConfig->setMetadataDriverImpl($driver);
+            $entityConfig->setAutoGenerateProxyClasses($isDevMode);
+            $DoctrineEntityManager          = EntityManager::create($connection, $entityConfig);
+            $this->EntityManagerDecorator   = new EntityManagerDecorator($DoctrineEntityManager);
+            $this->triggerEvent(
+                self::TRIGGER_ENTITY_MANAGER_CREATED,
+                [
+                    'EntityManager' => $this->EntityManagerDecorator
+                ]
+            );
+        }
+        return $this->EntityManagerDecorator;
+    }
+
+    /**
+     * Method getCache
+     *
+     * @param array $config EntityConfig
+     *
+     * @return Cache $cache DoctrineCache
+     */
+    private function getCache() : Cache
+    {
+        $zendCache = $this->getCacheManager()->getCache(__NAMESPACE__);
+        return new ZendStorageCache($zendCache);
+    }
+
+    /**
+     * EntityManager作成用のConfigを取得する
+     *
+     * @return array
+     */
+    protected function getConfig()
+    {
+        return $this->getConfigManager()->getConfig('model');
+    }
+}

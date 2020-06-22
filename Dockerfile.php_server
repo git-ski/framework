@@ -1,0 +1,15 @@
+FROM composer:1.9 AS BUILD_IMAGE
+MAINTAINER Chen Han <gpgkd906@gmail.com>
+
+WORKDIR /application
+COPY . .
+RUN composer install --no-dev
+RUN composer build
+
+FROM gpgkd906/php8-fpm-develop:rc
+MAINTAINER Chen Han <gpgkd906@gmail.com>
+
+WORKDIR /application
+COPY --from=BUILD_IMAGE /application .
+RUN cd /application && mv env.development.php env.php && mv php-ini-overrides.ini /usr/local/etc/php/conf.d/99-overrides.ini
+RUN chmod 777 /application/var /application/public

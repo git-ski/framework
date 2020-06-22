@@ -1,0 +1,58 @@
+{% if paginator.pageCount %}
+    <div class="col-md-3">
+        <p class="m-t-30">
+            全　{{ paginator.totalItemCount }}　件中　
+            {% if paginator.current == 1  %}
+                1　～　{{ paginator.currentItemCount }}
+            {% else %}
+                {{ ((paginator.current - 1) * paginator.itemCountPerPage) + 1}}　～　{{ ((paginator.current - 1) * paginator.itemCountPerPage) + paginator.currentItemCount }}
+            {% endif %}
+            件表示
+        </p>
+    </div>
+    <div class="col-md-6 text-center">
+        <nav>
+            <ul class="pagination">
+                <!-- Previous page link -->
+                {% if paginator.previous %}
+                    <li>
+                        <a href="{{ self.router.linkto(self.paginatorController, null, { page: paginator.previous}) }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <span aria-hidden="true">&laquo;</span>
+                    </li>
+                {% endif %}
+
+                <!-- Numbered page links -->
+                {% for page in paginator.pagesInRange %}
+                    {% if page != paginator.current %}
+                        <li>
+                            <a href="{{self.router.linkto(self.paginatorController, null, {page:page} )}}">{{page}}</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <span aria-hidden="true" class="current"><b>{{page}}</b></span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Next page link -->
+                {% if paginator.next %}
+                    <li>
+                        <a href="{{ self.router.linkto(self.paginatorController, null, {page: paginator.next}) }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li>
+                        <span aria-hidden="true">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    <div class="col-md-3"></div>
+{%endif%}

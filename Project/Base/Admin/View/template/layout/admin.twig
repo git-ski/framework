@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="{{ pageInfo.meta_description | tf}}">
+    <meta name="keywords" content="{{ pageInfo.meta_keywords | tf}}">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:locale" content="{{'en_US' | tf}}">
+    <meta property="fb:app_id" content="">
+    <meta property="og:title" content="{{ pageInfo.og_title | tf}} | {{ pageInfo.og_site_name | tf}}">
+    <meta property="og:description" content="{{ pageInfo.og_description | tf}}">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="{{ pageInfo.og_site_name | tf}}">
+    <meta property="og:type" content="{{ pageInfo.og_type | tf}}">
+    <meta property="og:image" content="">
+
+    <title>{{ pageInfo.title | tf }} | {{ pageInfo.site_name | tf }}</title>
+    {% for link in self.style %}
+        <link href="{{ link }}" rel="stylesheet">
+    {% endfor %}
+</head>
+
+<body id="{{pageInfo.bodyId}}" class="{{pageInfo.bodyClass}}">
+
+    {{ self.containers.Header.Content | saferaw }}
+
+    {{ self.containers.Main.Content | saferaw }}
+
+    {{ self.containers.Footer.Content | saferaw}}
+
+    {% for link in self.script %}
+        <script src="{{link}}"></script>
+    {% endfor %}
+</body>
+
+</html>

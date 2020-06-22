@@ -1,0 +1,19 @@
+
+{% set TopController = 'Project\\Base\\Front\\Controller\\Front\\TopController' %}
+<main class="main lower-mypage error">
+
+  <div>
+    <div class="tit_error flex flex-center">
+      <h2>500<span>Internal Server Error</span></h2>
+    </div>
+    <div class="flex flex-center">
+      <p class="txt_error ">{{'The server encountered an internal error and could not complete your request.' | tf}}<br>
+      {{'I am sorry to bother you but could you please wait a while and access again.' | tf}}</p>
+    </div>
+    <div class="index-action-buttons flex flex-center">
+      <a href="{{self.router.linkto(TopController)}}" class="button button-border">{{'Back to TOP'|tf}}</a>
+    </div>
+
+  </div>
+
+</main>

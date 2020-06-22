@@ -1,0 +1,7 @@
+@charset "UTF-8";
+.flatpickr-calendar .flatpickr-current-month {
+  flex-direction: row;
+}
+.flatpickr-calendar .flatpickr-current-month .numInputWrapper::after {
+  content: '';
+}

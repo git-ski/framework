@@ -1,0 +1,7 @@
+<ul class="breadcrumbs-step">
+    {% for display in self.getSteps() %}
+        <li>
+            <span class="step {{ display.class }}"><span class="num">STEP{{ loop.index0 + 1 }}</span>{{ display.label | tf}}</span>
+        </li>
+    {% endfor %}
+</ul>

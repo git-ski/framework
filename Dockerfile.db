@@ -1,0 +1,5 @@
+FROM mysql/mysql-server:8.0
+MAINTAINER Chen Han <gpgkd906@gmail.com>
+
+COPY ./private/mysql/conf/my.cnf /etc/my.cnf
+RUN mkdir /var/log/mysql/

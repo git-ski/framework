@@ -1,0 +1,7 @@
+FROM nginx:alpine
+MAINTAINER Chen Han <gpgkd906@gmail.com>
+
+WORKDIR /application
+COPY ./private/nginx/conf /etc/nginx/conf.d
+COPY ./private/nginx/ssl /etc/nginx/ssl
+COPY ./public ./public

@@ -1,0 +1,34 @@
+.languageWrapper {
+    visibility: hidden;
+    width: 0px !important;
+    height: 0px !important;
+}
+.languageElement {
+    background-color: #fff4a7;
+    display: block;
+}
+
+.language_selector {
+    top: 20vh;
+    left: 90vw;
+    width: 9vw;
+    position: fixed;
+    font-size: large;
+    border: solid #000000 0em;
+    z-index: 999;
+}
+.language_selector select {
+    border: 0px;
+    outline:0px;
+}
+.language_selector select {
+    background: rgba(255,244,167);
+}
+
+.language_selector select[data-locale="ja"] {
+    background: #ffffff;
+}
+
+.languageSelectorHide {
+    display: none;
+}

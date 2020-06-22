@@ -1,0 +1,90 @@
+{% set VocabularyHeaderModel = 'Project\\Base\\Model\\VocabularyHeaderModel' %}
+{% set ListController = 'Project\\Base\\Admin\\Controller\\Vocabulary\\ListController'%}
+{% set form  = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{form.start}}
+                    <div class="form-body form-horizontal">
+                        <div class="row">
+                            <div class="col-md-8 inputArea">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel','vocabularyHeaderId') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ vocabularyHeader.vocabularyHeaderId }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel','machineName') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ vocabularyHeader.machineName }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel','name') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ vocabularyHeader.name }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel','comment') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ vocabularyHeader.comment }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ VocabularyHeaderModel|ProxyStatic('getPropertyLabel','showPriority') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ vocabularyHeader.showPriority }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-t-0 m-b-40 hidden-xs hidden-sm">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2 text-center">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                {{form.end}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,16 @@
+{{ title }}
+
+{{ User.name }} 様
+
+これはプロジェクト「{{ Project.name }}」のテストメール、
+プロジェクトUrl: {{ Project.link }}
+このメールはUnitTestにより送信されている。
+
+以下プロジェクトメンバー:
+
+{% for member in Project.members %}
+  {{ member }}
+{% endfor %}
+
+
+ Powered by {{ Project.name }}

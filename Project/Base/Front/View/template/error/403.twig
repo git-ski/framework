@@ -1,0 +1,8 @@
+{% set TopController = 'Project\\Base\\Front\\Controller\\Front\\TopController' %}
+    <div class="four-zero-four-container">
+        <div class="error-code">403</div>
+        <div class="error-message">{{'We apologize, but we cannot find the page you’re looking for.' | tf}}</div>
+        <div class="button-place">
+            <a href="{{self.router.linkto(TopController)}}" class="btn btn-default btn-lg">{{'Back to TOP'|tf}}</a>
+        </div>
+    </div>

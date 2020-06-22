@@ -1,0 +1,42 @@
+<section>
+    <aside id="leftsidebar" class="sidebar">
+        {{ self.containers.LeftTop.content | saferaw}}
+        <div class="menu">
+            <ul class="list">
+                <li class="header">MAIN NAVIGATION</li>
+                {% for data in self.data %}
+                <li>
+                    <a href="{{ data.link ?? '#' }}"
+                        {% if data.child %}class="menu-toggle"{% endif %}>
+                    {{ data.icon | raw }} <span>{{ data.title }}</span>
+                    </a>
+                    {% if data.child %}
+                    <ul class="ml-menu">
+                    {% for item in data.child %}
+                    <li>
+                        <a href="{{ item.link ?? '#' }}"
+                            {% if item.child %}class="menu-toggle"{% endif %}>
+                        {{ item.icon | raw }} <span>{{ item.title }}</span>
+                    </a>
+                    {% if item.child %}
+                    <ul class="nav nav-third-level">
+                    {% for row in item.child %}
+                    <li>
+                        <a href="{{ row.link ?? '#' }}">
+                        {{ row.icon | raw }} {{ item.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                    {% endif %}
+                    </li>
+                    {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+       {{ self.containers.LeftBottom.content | saferaw}}
+    </aside>
+</section>

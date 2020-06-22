@@ -1,0 +1,167 @@
+{
+    "name": "gitski/framework",
+    "description": "gitski framework by chen",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "chen han",
+            "email": "gpgkd906@gmail.com"
+        }
+    ],
+    "extra": {
+        "testCommands": [
+            "// docker version",
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/eventManager --configuration Framework/EventManager/phpunit.xml.dist'",
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/objectManager --configuration Framework/ObjectManager/phpunit.xml.dist'",
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/routerManager --configuration Std/RouterManager/phpunit.xml.dist'",
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/httpmessage --configuration Std/HttpMessageManager/phpunit.xml.dist'",
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/Crypt --configuration Std/CryptManager/phpunit.xml.dist'",
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/mailerService --configuration Std/MailerService/phpunit.xml.dist'",
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/formManager --configuration Std/FormManager/phpunit.xml.dist'",
+            "// native version",
+            "php vendor/bin/phpunit --coverage-html private/codecover/eventmanager --configuration Framework/EventManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/objectmanager --configuration Framework/ObjectManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/aclmanager --configuration Std/AclManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/authentication --configuration Std/Authentication/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/cachemanager --configuration Std/CacheManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/cryptmanager --configuration Std/CryptManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/entitymanager --configuration Std/EntityManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/fileservice --configuration Std/FileService/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/httpmessagemanager --configuration Std/HttpMessageManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/loggermanager --configuration Std/LoggerManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/mailerservice --configuration Std/MailerService/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/routerManager --configuration Std/RouterManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/validatormanager --configuration Std/ValidatorManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/restful --configuration Std/Restful/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/renderer --configuration Std/Renderer/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/sessionmanager --configuration Std/SessionManager/phpunit.xml.dist",
+            "php vendor/bin/phpunit --coverage-html private/codecover/translatormanager --configuration Std/TranslatorManager/phpunit.xml.dist"
+        ]
+    },
+    "scripts": {
+        "post-package-install": [
+            "Migrations\\ModuleHandler::postPackageInstall"
+        ],
+        "pre-package-uninstall": [
+            "Migrations\\ModuleHandler::prePackageUninstall"
+        ],
+        "build": [
+            "@composer dumpautoload -o"
+        ],
+        "test": [
+            "@composer test:docker"
+        ],
+        "test-ci": [
+            "@composer test:ci"
+        ],
+        "document": [
+            "@composer document:build"
+        ],
+        "test:docker": [
+            "docker exec php_server /bin/bash -c 'cd /application; php vendor/bin/phpunit --coverage-html private/codecover/entityManager --configuration Std/EntityManager/phpunit.xml.dist'"
+        ],
+        "test:ci": [
+            "php vendor/bin/phpunit --coverage-html private/codecover/translatormanager --configuration Std/TranslatorManager/phpunit.xml.dist"
+        ],
+        "document:build": [
+            "rm -rf ./private/document/; php private/bin/sami.phar update .sami/config.php"
+        ],
+        "document:tutorial:init": [
+            "cd ./private/tutorial-src; git init && git add . && git commit -m 'init';"
+        ],
+        "document:tutorial:build": [
+            "gitbook build ./private/tutorial-src private/tutorial"
+        ],
+        "document:tutorial:preview": [
+            "gitbook serve private/tutorial-src"
+        ],
+        "security:code:analysis": [
+            "cp .phan/strict.config.php .phan/config.php; phan -p -o ./private/analysis.txt"
+        ],
+        "security:compatibily:analysis": [
+            "cp .phan/compatibily.config.php .phan/config.php; phan -p -o ./private/compatibily.txt"
+        ],
+        "security:check": [
+            "php vendor/bin/security-checker security:check composer.lock"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://git-ski.github.io/packages/"
+        }
+    ],
+    "require": {
+        "psr/container": "*",
+        "psr/log": "*",
+        "psr/http-message": "*",
+        "laminas/laminas-authentication": "*",
+        "laminas/laminas-session": "*",
+        "laminas/laminas-crypt": "*",
+        "laminas/laminas-http": "*",
+        "laminas/laminas-cache": "*",
+        "laminas/laminas-validator": "*",
+        "laminas/laminas-filter": "*",
+        "laminas/laminas-inputfilter": "*",
+        "laminas/laminas-i18n": "*",
+        "laminas/laminas-i18n-resources": "*",
+        "laminas/laminas-diactoros": "*",
+        "laminas/laminas-permissions-acl": "*",
+        "laminas/laminas-json": "*",
+        "laminas/laminas-log": "*",
+        "laminas/laminas-config-aggregator": "*",
+        "laminas/laminas-mail": "*",
+        "laminas/laminas-httphandlerrunner": "*",
+        "laminas/laminas-psr7bridge": "*",
+        "laminas/laminas-paginator": "*",
+        "symfony/filesystem": "*",
+        "symfony/process": "*",
+        "symfony/lock": "*",
+        "symfony/yaml": "*",
+        "symfony/console": "*",
+        "swiftmailer/swiftmailer": "*",
+        "league/csv": "*",
+        "league/route": "*",
+        "league/omnipay": "*",
+        "league/flysystem": "*",
+        "league/flysystem-sftp": "*",
+        "league/flysystem-aws-s3-v3": "*",
+        "league/flysystem-replicate-adapter": "*",
+        "doctrine/orm": "*",
+        "doctrine/doctrine-orm-module": "*",
+        "doctrine/doctrine-module": "*",
+        "doctrine/migrations": "*",
+        "monolog/monolog": "*",
+        "oro/doctrine-extensions": "*",
+        "beberlei/doctrineextensions": "*",
+        "scienta/doctrine-json-functions": "^4.0",
+        "twig/twig": "*",
+        "ramsey/uuid": "*",
+        "paragonie/csp-builder": "*",
+        "ezimuel/php-secure-session": "*",
+        "endroid/qr-code": "*",
+        "tecnickcom/tcpdf": "*",
+        "laminas/laminas-dependency-plugin": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework",
+            "Std\\": "Std",
+            "Project\\": "Project",
+            "Migrations\\": "migrations"
+        }
+    },
+    "require-dev": {
+        "symfony/debug": "*",
+        "phpunit/phpunit": "*",
+        "deployer/deployer": "*",
+        "gpgkd906/code-generator": "*",
+        "sensiolabs/security-checker": "*"
+    },
+    "provide": {
+        "ext-gd": "*"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

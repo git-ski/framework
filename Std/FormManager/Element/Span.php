@@ -1,0 +1,48 @@
+<?php
+/**
+ * PHP version 7
+ * File Password.php
+ *
+ * @category FormElement
+ * @package  Std\FormManager
+ * @author   chenhan <gpgkd906@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework.git
+ */
+declare(strict_types=1);
+namespace Std\FormManager\Element;
+
+/**
+ * Class Span Element
+ * 画面上表示するだけ、変更は不可
+ *
+ * @category Password
+ * @package  Std\FormManager
+ * @author   chenhan <gpgkd906@gmail.com>
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework.git
+ */
+class Span extends FormElementWithSession
+{
+    /**
+     *
+     * @param array $value 入力データ
+     * @param string $attr  要素の属性
+     * @return string
+     */
+    public function makeInput($value, $attr) : string
+    {
+        return "<span {$attr}>" . $value . '</span>';
+    }
+
+    /**
+     *
+     * @param array  $value 入力データ
+     * @param string $attr  要素の属性
+     * @return string
+     */
+    public function makeConfirm($value, $attr) : string
+    {
+        return "<span {$attr}>" . $value . '</span>';
+    }
+}
