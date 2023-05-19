@@ -1,0 +1,53 @@
+<?php
+/**
+ * PHP version 7
+ * File {{class|ucfirst}}AwareTrait.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}};
+
+use Framework\ObjectManager\ObjectManager;
+
+/**
+ * Trait {{class|ucfirst}}AwareTrait
+ *
+ * @category Trait
+ * @package  {{module|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+trait {{class|ucfirst}}AwareTrait
+{
+    private static ${{class|ucfirst}};
+
+    /**
+     * Method index
+     *
+     * @param {{class|ucfirst}}Interface ${{class|ucfirst}}
+     *
+     * @return Object
+     */
+    public function set{{class|ucfirst}}({{class|ucfirst}}Interface ${{class|ucfirst}})
+    {
+        self::${{class|ucfirst}} = ${{class|ucfirst}};
+        return $this;
+    }
+
+    /**
+     * Method index
+     *
+     * @return {{class|ucfirst}}Interface ${{class|ucfirst}}
+     */
+    public function get{{class|ucfirst}}() : {{class|ucfirst}}Interface
+    {
+        return self::${{class|ucfirst}};
+    }
+}

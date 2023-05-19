@@ -1,0 +1,43 @@
+<?php
+/**
+ * PHP version 7
+ * File {{model}}.php
+ *
+ * @category Model
+ * @package  {{module|ucfirst}}\Front
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+{% if useEntityModel %}
+use Std\EntityManager\EntityInterface;
+use {{useEntityModel}};
+{% endif %}
+/**
+ * Class {{model}}
+ *
+ * @category Model
+ * @package  {{module|ucfirst}}\Front
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{model}}                                         {% if useEntityModel %} extends {{EntityModel}}
+{% endif %}
+
+{
+    public function getList(array $criteria = [], array $orderBy = null, $limit = null, $offset = null) : Iterable
+    {
+        //ここで拡張
+
+{% if useEntityModel %}
+        return parent::getList($criteria, $orderBy, $limit, $offset);
+{% else %}
+        return [];
+{% endif %}
+    }
+}

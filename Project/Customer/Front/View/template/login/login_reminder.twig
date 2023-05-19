@@ -1,0 +1,24 @@
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set form = self.form %}
+{{ form.start }}
+<main class="main lower-mypage">
+    <div class="container mt-30 mb-20">
+        <div class="step-section">
+            <div class="step-wrapper step4">
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+                <p class="mt-20">{{'Please enter your registered e-mail. We will send you an e-mail containing the Member ID.'|tf}}</p>
+                <div class="form-col1">
+                    <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontReminderEmail') }}</h4>
+                    <div class="form-group text-left {{ form.fieldsets.loginReminder.elements.email.errorClass }}">
+                        {{ form.fieldsets.loginReminder.elements.email.error | saferaw }}
+                        {{ form.fieldsets.loginReminder.elements.email | saferaw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cv-area">
+        {{ form.elements.submit | saferaw }}
+    </div>
+</main>
+{% do form.end %}

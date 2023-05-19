@@ -1,0 +1,34 @@
+<?php
+/**
+ * PHP version 7
+ * File {{controller}}.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller;
+
+{% if useEntityModel %}
+use Std\EntityManager\EntityInterface;
+use {{useEntityModel}} as BaseModel;
+{% endif %}
+
+/**
+ * Class {{model}}
+ *
+ * @category Model
+ * @package  {{module|ucfirst}}\Front
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{model}}                                         {% if useEntityModel %} extends BaseModel
+{% endif %}
+
+{
+}

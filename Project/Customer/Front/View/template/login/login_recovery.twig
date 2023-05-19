@@ -1,0 +1,33 @@
+{% set CustomerReminderModel = 'Project\\Customer\\Model\\CustomerReminderModel' %}
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set form = self.form %}
+{{ form.start }}
+<main class="main lower-mypage">
+    <div class="container mt-30 mb-20">
+        <div class="step-section">
+            <div class="step-wrapper step4">
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+                <p class="mt-20">{{'We will set a new password, please fill in all the items below and click "Set".'|tf}}</p>
+                <div class="form-col1">
+                    <h4 class="mt-0">{{ CustomerReminderModel|ProxyStatic('getPropertyLabel', 'frontVerifyHashKey') }}</h4>
+                    {{ form.fieldsets.customerReminder.elements.verifyHashKey.error | saferaw }}
+                    {{ form.fieldsets.customerReminder.elements.verifyHashKey | saferaw }}                    
+                </div>
+                <div class="form-col1">
+                    <h4 class="mt-20">{{ CustomerReminderModel|ProxyStatic('getPropertyLabel', 'frontRecoveryCustomerPassword') }}</h4>
+                    {{ form.fieldsets.customer.elements.customerPassword.error | saferaw }}
+                    {{ form.fieldsets.customer.elements.customerPassword | saferaw }}                    
+                </div>
+                <div class="form-col1">
+                    <h4 class="mt-20">{{ CustomerReminderModel|ProxyStatic('getPropertyLabel', 'frontRecoveryCustomerPasswordConfirm') }}</h4>
+                    {{ form.fieldsets.customer.elements.customerPasswordConfirm.error | saferaw }}
+                    {{ form.fieldsets.customer.elements.customerPasswordConfirm | saferaw }}                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cv-area">
+        {{ form.elements.submit | saferaw }}
+    </div>
+</main> 
+{% do form.end %}

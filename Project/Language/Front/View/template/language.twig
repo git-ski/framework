@@ -1,0 +1,6 @@
+{% for locale, language in languages %}
+<a class="header-action-button header-action-button-lang no-sp-flex" href="{{locale | localed_current_path }}">
+    <img src="/asset/front/images/icons/{{locale}}.png">
+    <span>{{language}}</span>
+</a>
+{% endfor %}

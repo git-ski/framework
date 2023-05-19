@@ -1,0 +1,19 @@
+{% set ProfileController = 'Project\\Customer\\Front\\Controller\\Customer\\ProfileController' %}
+
+<main class="main lower-mypage">
+    <div class="container mt-30 mb-20">
+        <div class="step-section">
+            <div class="step-wrapper step5">
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+                <h3 class="heading-center mt-40">{{'Registration Completed'|tf}}</h3>
+                <p class="text-center mt-20">{{'Thank you for registering.'|tf}}<br>{{'Please login from my page and perform various procedures.'|tf}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="btn-container">
+        {% if (redirectToUrl is defined and redirectToUrl) %}
+            <a href="{{ redirectToUrl }}" class="button button-contact">{{'Continue'|tf}}</a>
+        {% endif %}
+        <a href="{{ self.Router.linkto(ProfileController) }}" class="button button-contact">{{'My page TOP'|tf}}</a>
+    </div>
+</main>

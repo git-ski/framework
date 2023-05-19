@@ -1,0 +1,16 @@
+{% set LoginController = 'Project\\Customer\\Front\\Controller\\Login\\LoginController' %}
+<pre>
+{{'Dear %nameSei% %nameMei%,'|tf('default', locale)}} |replace({'%nameSei%': Customer.nameSei,'%nameMei%': Customer.nameMei})}}
+
+{{'Completion of Registration'|tf('default', locale)}}
+
+{% if customer.tempPasswordFlag %}
+{{'Since temporary password has been issued, change it at '|tf('default', locale)}}<a href="{{ Uri.scheme}}://{{ Uri.host }}{{ self.router.linkto(LoginController) }}">{{'first login'|tf('default', locale)}}</a>{{'.　　　　　　　'|tf('default', locale)}}
+{% endif %}
+
+ID: <strong>{{ customer.login }}</strong>
+PW: <strong>{{ customer.customerPassword }}</strong>
+
+{{ self.containers.Signature.content | saferaw }}
+</pre>
+

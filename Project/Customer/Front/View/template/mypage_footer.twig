@@ -1,0 +1,14 @@
+{% set ProfileController = 'Project\\Customer\\Front\\Controller\\Customer\\ProfileController' %}
+{% set PasswordController = 'Project\\Customer\\Front\\Controller\\Customer\\PasswordController' %}
+{% set PrivacyController = 'Project\\Pages\\Front\\Controller\\Pages\\PrivacyController' %}
+{% set EditController = 'Project\\Customer\\Front\\Controller\\Customer\\EditController' %}
+{% set TermsController = 'Project\\Pages\\Front\\Controller\\Pages\\TermsController' %}
+{% set WithdrawController = 'Project\\Customer\\Front\\Controller\\Customer\\WithdrawController' %}
+{% set LogoutController = 'Project\\Customer\\Front\\Controller\\Login\\LogoutController' %}
+<li class="foot-nav-item"><a href="{{self.router.linkto(ProfileController)}}">{{'My page'|tf}}</a></li>
+<li class="foot-nav-item"><a href="{{self.router.linkto(PasswordController)}}">{{'Change Password'|tf}}</a></li>
+<li class="foot-nav-item"><a href="{{self.router.linkto(EditController)}}">{{'Modify Personal Info'|tf}}</a></li>
+<li class="foot-nav-item"><a href="{{self.router.linkto(TermsController)}}">{{'Terms of service'|tf}}</a></li>
+<li class="foot-nav-item"><a href="{{self.router.linkto(PrivacyController)}}">{{'Privacy Policy'|tf}}</a></li>
+<li class="foot-nav-item"><a href="{{self.router.linkto(WithdrawController)}}">{{'Membership Withdrawal'|tf}}</a></li>
+<li class="foot-nav-item"><a href="{{self.router.linkto(LogoutController)}}">{{'Logout'|tf}}</a></li>

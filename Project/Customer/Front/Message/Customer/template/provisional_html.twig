@@ -1,0 +1,46 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ self.subject }}</title>
+</head>
+<body style="margin:0px; background: #f8f8f8; ">
+<div width="100%" style="background: #f8f8f8; padding: 0px 0px; font-family:arial; line-height:28px; height:100%;  width: 100%; color: #514d6a;">
+  <div style="max-width: 700px; padding:50px 0;  margin: 0px auto; font-size: 14px">
+    <div style="padding: 40px; background: #fff;">
+      <table border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+        <tbody>
+          <tr>
+            <td><pre>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{{'This mail is sent automatically from Tokyu Resort Service.'|tf}}　
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{{'Thank you very much for applying for membership registration (free)'|tf}}
+{{'to "Secure Framework Application".'|tf}}
+{{'To use "Secure Framework Application" click on the following URL,'|tf}}
+{{'enter necessary information, please complete the procedure.'|tf}}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{{'[Secure Framework Application] How to apply for membership registration (free)'|tf}}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(1){{'Click the URL below to display the required information input screen.'|tf}}
+<a href="{{ Uri.scheme }}://{{ Uri.host }}{{ registerLink }}">{{'Member Registration'|tf}}</a>
+※{{'This URL is effective'|tf}} {{registerExpiration / 60}} {{'hours from sending mail.'|tf}}
+(2){{'Please enter necessary information on the displayed screen and click "confirm" button.'|tf}}
+(3){{'The confirmation screen will be displayed. After confirming the input information, please click the "Completion" button.'|tf}}
+(4){{'"Secure Framework Application" Member registration (free) procedures completed.'|tf}}
+{{'For any questions, please contact below.'|tf}}
+
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+※{{'This e-mail address is dedicated to distribution only. Those who do not know, please discard them.'|tf}}
+{{ self.containers.Signature.content | saferaw }}
+          </pre></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+customer_id, name_sei,name_mei,kana_sei,kana_mei,customer_password,temp_password_flag,m_prefecture_id,zip_cd,         address01,address02,address03,address_kana,email,phone,mobile_phone,fax,sex_type,birth_date,dm_flag,           dm_deliver_type,tel_receive_status,tel_deliver_type,mail_type,mailmag_receive_status,mail_deliver_type,            html_mail_receive_status,member_register_date,member_withdraw_date,delete_flag
+,佐々木,太郎,ササキ,タロウ,Abcd!1234,0,28,6570568,神戸市灘区,岩屋北町4-3-6,灘タワー,こうべしなだくいわやきた,thanhhuy.lam@gmail.com,0783272280,09012345678,0783272281,1,1981/1/1,1,1,1,1,1,1,1,1,2018/02/21,
+,佐々木,太郎,ササキ,タロウ,Abcd!1234,0,28,6570568,神戸市灘区,岩屋北町4-3-6,灘タワー,こうべしなだくいわやきた,thanhhuy.lam@gmail.com,0783272280,09012345678,0783272281,1,1981/1/1,1,1,1,1,1,1,1,1,2018/02/21,
+,佐々木,太郎,ササキ,タロウ,Abcd!1234,0,28,6570568,神戸市灘区,岩屋北町4-3-6,灘タワー,こうべしなだくいわやきた,thanhhuy.lam@gmail.com,0783272280,09012345678,0783272281,1,1981/1/1,1,1,1,1,1,1,1,1,2018/02/21,
+7,佐々木3,太郎,ササキ,タロウ,Abcd!1234,0,28,6570568,神戸市灘区,岩屋北町4-3-6,灘タワー,こうべしなだくいわやきた,thanhhuy.lam@gmail.com,0783272280,09012345678,0783272281,1,1981/1/1,1,1,1,1,1,1,1,1,2018/02/21,

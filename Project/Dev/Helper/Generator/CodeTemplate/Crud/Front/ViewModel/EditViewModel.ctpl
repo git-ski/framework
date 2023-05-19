@@ -1,0 +1,70 @@
+<?php
+/**
+ * PHP version 7
+ * File EditViewModel.php
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}};
+
+use Std\ViewModel\AbstractViewModel;
+use Project\Base\Front\View\Layout\FrontPageLayout;
+use {{useEditFieldset}};
+
+/**
+ * Class EditViewModel
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class EditViewModel extends RegisterViewModel
+{
+    protected $template = '/template/{{namespace|lcfirst}}/edit.phtml';
+    protected $confirmTemplate = '/template/{{namespace|lcfirst}}/edit.phtml';
+    protected $finishTemplate = null;
+
+    protected $fieldset = [
+        {{EditFieldset}}::class
+    ];
+
+    public $listeners = [
+        self::TRIGGER_BEFORE_RENDER => 'onRender',
+    ];
+
+    /**
+     * Method GetTemplateDir
+     *
+     * @return string templateDir
+     */
+    public function getTemplateDir(): string
+    {
+        return __DIR__ . '/..{{ns}}';
+    }
+
+    /**
+     * Method onRender
+     *
+     * @return void
+     */
+    public function onRender(): void
+    {
+        $data = $this->getData();
+        $data['{{entity|lcfirst}}'] = $data['{{entity|lcfirst}}']->toArray();
+{% for name, property in EntityPropertyList if property.exclude != true %}
+{% if property.type == "selectJoin" %}
+        $data['{{entity|lcfirst}}']['{{name}}'] = $data['{{entity|lcfirst}}']['{{name}}']->get{{name}}Id();
+{% endif %}
+{% endfor %}
+        $form = $this->getForm();
+        $form->setData($data);
+    }
+}

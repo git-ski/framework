@@ -1,0 +1,28 @@
+{% set ProfileController = 'Project\\Customer\\Front\\Controller\\Customer\\ProfileController' %}
+
+{{'Dear %nameSei% %nameMei%,'|tf('default', locale) |replace({'%nameSei%': Customer.nameSei,'%nameMei%': Customer.nameMei})}}
+
+{{'Thank you very much for using "Secure Framework Application" this time.'|tf}}
+{{'We will inform you that member registration to "Secure Framework Application" has been completed.'|tf}}
+
+{% if customer.tempPasswordFlag %}
+{{'Your member ID and temporary password is the following.' | tf | saferaw}}
+{{'Please be sure to change your password at first login.' | tf | saferaw}}
+{% endif %}
+
+{{'- ' | tf}}{{'Your login' | tf}}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{{'Member ID' | tf}}: {{ customer.login }}
+{{'Password' | tf}}: {{ customer.customerPassword }}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{{'Please check your registered customer information from My page after logging in.'|tf('default', locale)}}
+{{ Uri.scheme}}://{{ Uri.host }}{{ self.router.linkto(ProfileController) | localed_path(locale) }}
+
+{{'We look forward to your continued support of Secure Framework Application.'|tf('default', locale)}}
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+※{{'This e-mail address is dedicated to distribution only. Those who do not know, please discard them.'|tf('default', locale)}}
+
+{{ self.containers.Signature.content | saferaw }}
+

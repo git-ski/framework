@@ -1,0 +1,66 @@
+{% set RoleModel = "Project\\Permission\\Model\\RoleModel" %}
+{% set ListController = 'Project\\Permission\\Admin\\Controller\\Role\\ListController'%}
+{% set form = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{form.start}}
+                    <div class="form-horizontal">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.role.elements.roleId.errorClass}}">
+                                        {{form.fieldsets.role.elements.roleId.error | saferaw}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.role.elements.role.errorClass}}">
+                                        <label class="col-md-3 control-label">
+                                            {{ RoleModel|ProxyStatic('getPropertyLabel', 'role') }}
+                                            {% if form.fieldsets.role.elements.role.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.role.elements.role | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.role.elements.role.error | saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ self.containers.SubForm.content | saferaw}}
+                        </fieldset>
+                        <hr class="m-t-0 m-b-40">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2 text-center">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {{form.end}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

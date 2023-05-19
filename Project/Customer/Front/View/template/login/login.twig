@@ -1,0 +1,29 @@
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set ProvisionalController = 'Project\\Customer\\Front\\Controller\\Customer\\ProvisionalController' %}
+{% set LoginReminderController = 'Project\\Customer\\Front\\Controller\\Login\\LoginReminderController' %}
+{% set form = self.form %}
+<main class="main lower-mypage">
+    {{ form.start }}
+    <div class="container col1">
+        <div class="step-section mb-0">
+            <div class="step-wrapper">
+                <p>{{'Please enter your registered Member ID and click the "Next" button.'|tf}}</p>
+                <div class="form-col1">
+                    <div class="form-inner {{ form.fieldsets.customerLogin.elements.login.errorClass }}">
+                        <h4>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontLogin')}}</h4>
+                        {{ form.fieldsets.customerLogin.elements.login.error | saferaw}}
+                        {{ form.fieldsets.customerLogin.elements.login | saferaw }}
+                    </div>
+                    <p class="text-right mt-10 mb-0">
+                        <a href="{{ self.Router().linkto(LoginReminderController) }}" tabindex="4">{{'Forgot your Member ID?'|tf}}</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btn-container">
+        <a class="button button-border" href="{{ self.Router().linkto(ProvisionalController) }}" tabindex="6">{{'Create an Account'|tf}}</a>
+        {{ form.elements.submit | saferaw }}
+    </div>
+    {% do form.end %}
+</main>

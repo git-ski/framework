@@ -1,0 +1,25 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{{'This mail is an automatic delivery mail that is sent to you '|tf}}
+{{'for confirming the contents to the customer who contacted us.'|tf}}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{{'Dear %Inquiryname%,'|tf |replace({'%Inquiryname%': Inquiry.name})}}
+
+{{'Thank you very much for your inquiry this time.'|tf}}
+{{'I will check and I will contact you from the person in charge.'|tf}}
+
+{{'Depending on the content of your inquiry, we may have time to give you a reply, '|tf}}
+{{'so please be forewarned.'|tf}}
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+{{'Reservation number'|tf}}：{{Inquiry.rentalNo}}
+{{'Inquiry Category'|tf}}：{{Inquiry.inquiryType.type | t}}
+{{'Action'|tf}}：{{Inquiry.inquiryAction.action | t}}
+{{'Content of Inquiry'|tf}}：
+{{Inquiry.body}}
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+※{{'This e-mail address is dedicated to distribution only. Those who do not know, please discard them.'|tf}}
+
+{{ self.containers.Signature.content | saferaw }}
+

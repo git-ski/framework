@@ -1,0 +1,97 @@
+<?php
+/**
+ * PHP version 7
+ * File {{controller}}.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Project\Base\Admin\Controller\AbstractAdminController;
+use Std\ViewModel\ViewModelManager;
+use {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}}\{{viewModel}};
+{% if entityPath %}
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\{{model}} as {{namespace|ucfirst}}{{model}};
+{% endif %}
+
+/**
+ * Class {{controller}}
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{controller}} extends AbstractAdminController
+{
+    /**
+     * Method index
+     *
+     * @return {{viewModel}}
+     */
+    public function index(): {{viewModel}}
+    {
+        return $this->getViewModelManager()->getViewModel(
+            [
+                'viewModel' => {{viewModel}}::class,
+                'data'      => [
+                ],
+                'listeners' => [
+                    {{viewModel}}::TRIGGER_FORMFINISH => [$this, 'on{{action|ucfirst}}Finish']
+                ]
+            ]
+        );
+    }
+
+    /**
+     * Method on{{action|ucfirst}}Finish
+     *
+     * @param \Framework\EventManager\Event $event 'Event'
+     *
+     * @return void
+     */
+    public function on{{action|ucfirst}}Finish(\Framework\EventManager\Event $event): void
+    {
+        $ViewModel = $event->getTarget();
+        $data      = $ViewModel->getForm()->getData();
+        // ここでフォーム完了時処理を書く
+{% if entityPath %}
+        ${{namespace|ucfirst}}{{model}} = $this->getObjectManager()->get({{namespace|ucfirst}}{{model}}::class);
+{% endif %}
+
+    }
+
+    /**
+     * Method getPageInfo
+     *
+     * @return Array
+     */
+    public static function getPageInfo(): array
+    {
+        return [
+            "title"             => "{{EntityClass}} フォーム", // title
+            'description'       => "{{EntityClass}} フォーム",
+            "site_name"         => "secure framework", // titleの|以降
+            "lower_title"       => "", // マイページ系の表示タイトル
+            "meta_description"  => "meta_description", // description
+            "meta_keywords"     => "meta_keywords", // keywords
+            "og_title"          => "og_title", // og:title
+            "og_description"    => "og_description", // og:description
+            "og_site_name"      => "og_site_name", // og:site_name
+            "og_type"           => "og_type", // og:type
+            "bodyClass"         => "theme-light-blue",
+            'priority'          => 2,
+            'menu'              => true,
+            'icon'              => '<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>',
+            'group'             => '{{EntityClass}} 管理',
+            'groupIcon'         => '<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>',
+        ];
+    }
+}

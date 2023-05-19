@@ -1,0 +1,12 @@
+{% set PasswordController = 'Project\\Customer\\Front\\Controller\\Customer\\PasswordController' %}
+{% set EditController = 'Project\\Customer\\Front\\Controller\\Customer\\EditController' %}
+<section class="subnav">
+  <ul>
+    <li>
+      <a href="{{self.router.linkto(PasswordController)}}" class="button button-border">{{'Change Password'|tf}}</a>
+    </li>
+    <li>
+      <a href="{{self.router.linkto(EditController)}}" class="button button-border">{{'Modify Personal Info'|tf}}</a>
+    </li>
+  </ul>
+</section>

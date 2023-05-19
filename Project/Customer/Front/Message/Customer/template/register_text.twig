@@ -1,0 +1,19 @@
+{% set ProfileController = 'Project\\Customer\\Front\\Controller\\Customer\\ProfileController' %}
+
+{{'Dear %nameSei% %nameMei%,'|tf |replace({'%nameSei%': Customer.nameSei,'%nameMei%': Customer.nameMei})}}
+
+{{'Thank you very much for using "Secure Framework Application" this time.'|tf}}
+{{'We will inform you that member registration to "Secure Framework Application" has been completed.'|tf}}
+
+{{'As you register your e-mail address and password, you will need it when you log in to My Page,'|tf}}
+{{'so please keep it carefully.'|tf}}
+
+{{'Please check your registered customer information from My page after logging in.'|tf}}
+{{ Uri.scheme}}://{{ Uri.host }}{{ self.router.linkto(ProfileController) }}
+
+{{'We look forward to your continued support of Secure Framework Application.'|tf}}
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+※{{'This e-mail address is dedicated to distribution only. Those who do not know, please discard them.'|tf}}
+
+{{ self.containers.Signature.content | saferaw }}

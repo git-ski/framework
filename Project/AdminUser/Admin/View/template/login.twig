@@ -1,0 +1,42 @@
+{% set form = self.form %}
+<div class="login-box">
+    <div class="logo">
+        <small>Secure Framework - Material Design</small>
+    </div>
+    <div class="card">
+        <div class="body">
+            {{ form.start }}
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">person</i>
+                    </span>
+                    <div class="form-line">
+                        {{ form.fieldsets.adminLogin.elements.login | saferaw}}
+                    </div>
+                    <label class="error">
+                      {{form.fieldsets.adminLogin.elements.login.error | saferaw}}
+                    </label>
+
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">lock</i>
+                    </span>
+                    <div class="form-line">
+                        {{ form.fieldsets.adminLogin.elements.adminPassword | saferaw}}
+                    </div>
+                    <label class="error">
+                      {{ form.fieldsets.adminLogin.elements.adminPassword.error | saferaw}}
+                    </label>
+                </div>
+                {{self.containers.SubForm.Content | saferaw}}
+                <div class="row">
+                    <div class="col-xs-8 p-t-5"></div>
+                    <div class="col-xs-4">
+                        <button class="btn btn-block bg-pink" type="submit">SIGN IN</button>
+                    </div>
+                </div>
+            {{ form.end }}
+        </div>
+    </div>
+</div>

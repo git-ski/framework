@@ -1,0 +1,78 @@
+<?php
+/**
+ * PHP version 7
+ * File ListViewModel.php
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}};
+
+use Std\ViewModel\FormViewModel;
+use Project\Base\Admin\View\Layout\AdminPageLayout;
+use {{useListFieldset}};
+
+/**
+ * Class ListViewModel
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class ListViewModel extends FormViewModel
+{
+    protected $template = '/template/{{namespace|lcfirst}}/list.phtml';
+
+    protected $config = [
+        'layout' => AdminPageLayout::class,
+        'scripts' => [
+        ],
+        'styles' => [
+        ],
+    ];
+
+    protected $fieldset = [
+        {{ListFieldset}}::class
+    ];
+
+    public $listeners = [
+        self::TRIGGER_BEFORE_RENDER => 'onRender',
+    ];
+
+    /**
+     * Method GetTemplateDir
+     *
+     * @return string templateDir
+     */
+    public function getTemplateDir(): string
+    {
+        return __DIR__ . '/..{{ns}}';
+    }
+
+    /**
+     * Method onRender
+     *
+     * @return void
+     */
+    public function onRender(): void
+    {
+        $data = $this->getData();
+        $data['{{entity|lcfirst}}'] = array_map(function (${{EntityClass}}) {
+            ${{EntityClass}} = ${{EntityClass}}->toArray();
+{% for name, property in EntityPropertyList if property.exclude != true %}
+{% if property.type == "selectJoin" %}
+            ${{EntityClass}}['{{name}}'] = ${{EntityClass}}['{{name}}']->get{{name}}Id();
+{% endif %}
+{% endfor %}
+            return ${{EntityClass}};
+        }, $data['{{entity|lcfirst}}']);
+        $this->setData($data);
+    }
+}

@@ -1,0 +1,27 @@
+{{'Dear %nameSei% %nameMei%,'|tf |replace({'%nameSei%': Customer.nameSei,'%nameMei%': Customer.nameMei})}}
+
+{{'Thank you for using our products and services.'|tf}}
+
+{{'We will inform you the URL for changing your password.'|tf}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{{'How to change your password'|tf}}
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+(1){{'Click the [URL] below.'|tf}}
+
+{{ Uri.scheme}}://{{ Uri.host }}{{ recoveryLink }}
+※{{'Please access this [URL] within '|tf}}{{ reminderExpiration }}{{' minutes from sending mail.'|tf}}
+
+(2){{'The [Password reset] screen will be displayed.'|tf}}
+{{'After entering [authentication key] and [new password] displayed on the screen, click the "setting" button.'|tf}}
+
+(3){{'Change complete.'|tf}}
+
+{{'For any questions, please contact below.'|tf}}
+
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+※{{'This e-mail address is dedicated to distribution only. Those who do not know, please discard them.'|tf}}
+
+{{ self.containers.Signature.content | saferaw }}

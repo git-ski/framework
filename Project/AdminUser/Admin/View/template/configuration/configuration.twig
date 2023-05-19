@@ -1,0 +1,39 @@
+{% set form  = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{form.start}}
+                    <div class="form-body form-horizontal">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-8 inputArea">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                        {{self.containers.SubForm.Content | saferaw}}
+                        </fieldset>
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2">
+                                    {{ form.elements.submit | raw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {{form.end}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,13 @@
+{% set ProfileController = 'Project\\Customer\\Front\\Controller\\Customer\\ProfileController' %}
+<main class="main lower-mypage">
+    <div class="container mt-30 mb-20">
+        <div class="step-section">
+            <div class="step-wrapper">
+                <h3 class="heading-center mt-20">{{'Change of registration information is complete'|tf}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="btn-container">
+        <a href="{{ self.Router().linkto(ProfileController) }}" class="button button-contact">{{'My page TOP'|tf}}</a>
+    </div>
+</main>

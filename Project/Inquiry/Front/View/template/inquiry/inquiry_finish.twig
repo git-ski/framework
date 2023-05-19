@@ -1,0 +1,26 @@
+{% set TopController = 'Project\\Base\\Front\\Controller\\Front\\TopController' %}
+{% set InquiryController = 'Project\\Inquiry\\Front\\Controller\\Inquiry\\InquiryController' %}
+<main class="main">
+    <h2 class="lower-title">{{'Contact Us'|tf}}</h2>
+
+    {{ self.containers.Breadcrumb.content | saferaw }}
+
+    <div class="container">
+        <div class="step-section">
+            <div class="step-wrapper">
+
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+
+                <h4 class="heading-center mt-20">{{'Thank you for your inquiry'|tf}}</h4>
+                <p class="mt-20">{{'Depending on the content of your inquiry, we may return it from the person in charge. Please note.'|tf}}</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="cv-area">
+        <a href="{{ self.Router().linkto(TopController) }}">
+            <button class="cv-area-button">{{'Back to TOP'|tf}}</button>
+        </a>
+    </div>
+
+</main>

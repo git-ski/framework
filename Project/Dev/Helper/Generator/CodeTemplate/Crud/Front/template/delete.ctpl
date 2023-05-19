@@ -1,0 +1,40 @@
+<?php
+use {{useEntityModel}};
+$form  = $self->getForm();
+?>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header"><?=$title?></h1>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="tab-pane active">
+{% for name, property in EntityPropertyList if property.type != 'password' and property.exclude != true %}
+                <div>
+                    <strong><?= {{EntityModel}}::getPropertyLabel('{{name}}'); ?></strong>
+                    <p class="m-t-30">
+{% if property.type == "selectJoin" %}
+                        <?=${{entity|lcfirst}}['{{name}}']->get{{name|ucfirst}}Id(); ?>
+{% else %}
+                        <?=${{entity|lcfirst}}['{{name}}'] ?>
+{% endif %}
+                    </p>
+                </div>
+{% endfor %}
+            </div>
+            <?php $form = $self->getForm(); ?>
+            <?php $form->start(); ?>
+            <fieldset>
+                <div>
+                    <div class="col-md-12">
+                        <?= $form->submit; ?>
+                    </div>
+                </div>
+            </fieldset>
+            <?php $form->end(); ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+{% set CustomerWithdrawModel = 'Project\\Customer\\Front\\Controller\\Customer\\WithdrawModel' %}
+{% set ProfileController = 'Project\\Customer\\Front\\Controller\\Customer\\ProfileController' %}
+{% set form = self.form %}
+
+<main class="main lower-mypage">
+    {{ form.start }}
+    {{ form.fieldsets.customer.elements.customerId }}
+
+    <p class="text-center mt-30">{{'Those who wish to unsubscribe should confirm the following contents.'|tf}}</p>
+
+    <!-- 1記事 -->
+    <article class="container col1">
+        <div class="step-section mb-0">
+            <div class="step-wrapper">
+
+                <div class="form-col1">
+                    <h4 class="">{{ CustomerWithdrawModel|ProxyStatic('getPropertyLabel', 'frontCustomerWithdrawReason')}}</h4>
+                    {{ form.fieldsets.customer.elements.withdrawReason.error | saferaw }}
+                    <div class="select-box">
+                        {{ form.fieldsets.customer.elements.withdrawReason| saferaw }}
+                        <div class="select-box-icon">
+                            <span class="ion-ios-arrow-down icon"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-col1">
+                    <h4 class="mt-20">{{ CustomerWithdrawModel|ProxyStatic('getPropertyLabel', 'frontCustomerWithdrawNote')}}</h4>
+                    {{ form.fieldsets.customer.elements.withdrawNote.error | saferaw }}
+                    {{ form.fieldsets.customer.elements.withdrawNote| saferaw }}
+                </div>
+
+            </div>
+        </div>
+    </article>
+    <!-- /1記事 -->
+
+    <p class="text-center mt-40">{{'Please enter your login information again'|tf}}</p>
+
+    <div class="container col1">
+        <div class="step-section mb-0">
+            <div class="step-wrapper">
+
+                <div class="form-col1">
+                    <h4>{{ CustomerWithdrawModel|ProxyStatic('getPropertyLabel', 'frontLogin')}}</h4>
+                    {{ form.fieldsets.customer.elements.login.error | saferaw }}
+                    {{ form.fieldsets.customer.elements.login| saferaw }}
+                    <h4 class="mt-20">{{ CustomerWithdrawModel|ProxyStatic('getPropertyLabel', 'frontCustomerPassword')}}</h4>
+                    {{ form.fieldsets.customer.elements.customerPassword.error | saferaw }}
+                    {{ form.fieldsets.customer.elements.customerPassword| saferaw }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% if (isExistFlag) %}
+        <p class="text-center mb-20 red">{{'We currently have a valid reservation. If you wish to unsubscribe, please handle the reservation.'|tf}}<br>
+        {{'If you do not wish to cancel the reservation, please proceed after renting or school.'|tf}}</p>
+    {% endif %}
+    <div class="btn-container">
+        {% if (isExistFlag == false) %}
+            {{ form.elements.submit | saferaw }}
+        {% else %}
+            <a class="button button-contact" href="{{ self.Router().linkto(ProfileController) }}">{{'My page TOP'|tf}}</a>
+        {% endif %}
+
+    </div>
+
+    {% do form.end %}
+</main>

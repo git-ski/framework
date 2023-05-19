@@ -1,0 +1,11 @@
+<div class="language_selector">
+<select id="{{selector}}" class="languageSelectorHide form-control show-tick">
+    {% for locale, language in languages %}
+    <option value="{{locale}}" {% if locale == default_selector %}selected{% endif %}>{{language}}</option>
+    {% endfor %}
+</select>
+</div>
+<script nonce={{self.secureNonce}}>
+    window.languageService = window.languageService || {};
+    window.languageService.config = {{self.data|json_encode()|raw}}
+</script>

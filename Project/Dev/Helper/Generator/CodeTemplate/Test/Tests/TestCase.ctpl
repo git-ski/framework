@@ -1,0 +1,100 @@
+<?php
+/**
+ * PHP version 7
+ * File TestCase.php
+ *
+ * @category UnitTest
+ * @package  Framework\MailerService
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\Tests;
+
+use PHPUnit\Framework\TestCase;
+use Framework\ObjectManager\ObjectManager;
+use {{module|ucfirst}}\{{class|ucfirst}}Interface;
+use {{module|ucfirst}}\{{class|ucfirst}}AwareInterface;
+use {{module|ucfirst}}\{{class|ucfirst}}AwareTrait;
+use {{module|ucfirst}}\{{class|ucfirst}};
+
+/**
+ * Class TestCase
+ *
+ * @category UnitTest
+ * @package  Framework\MailerService
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{class|ucfirst}}Test extends TestCase
+{
+    /**
+    * setUpBeforeClass
+    *
+    * @api
+    * @access
+    * @return  null
+    * @example
+    * @since
+    */
+    public static function setUpBeforeClass()
+    {
+    }
+
+    /**
+    * tearDownAfterClass
+    *
+    * @api
+    * @access
+    * @return  null
+    * @example
+    * @since
+    */
+    public static function tearDownAfterClass()
+    {
+    }
+
+    /**
+     *
+     */
+    public function testCase()
+    {
+        ${{class|ucfirst}} = ObjectManager::getSingleton()->get({{class|ucfirst}}Interface::class);
+        $this->markTestIncomplete(
+            'テストケースをここで書いていく'
+          );
+    }
+
+    /**
+     *
+     */
+    public function testCase2()
+    {
+        $this->markTestIncomplete(
+            'テストケースをここで書いていく'
+          );
+    }
+
+    /**
+     *
+     */
+    public function testCase3()
+    {
+        $this->markTestIncomplete(
+            'テストケースをここで書いていく'
+          );
+    }
+
+    /**
+     *
+     */
+    public function testCase4()
+    {
+        $this->markTestIncomplete(
+            'テストケースをここで書いていく'
+          );
+    }
+}

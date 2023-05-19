@@ -1,0 +1,22 @@
+{% set TopController = 'Project\\Base\\Front\\Controller\\Front\\TopController' %}
+{% set FaqController = 'Project\\Inquiry\\Front\\Controller\\Faq\\FaqController' %}
+{% set InquiryController = 'Project\\Inquiry\\Front\\Controller\\Inquiry\\InquiryController' %}
+<main class="main">
+  <h2 class="lower-title">{{'Contact Us'|tf}}</h2>
+
+  {{ self.containers.Breadcrumb.content | saferaw }}
+
+  <div class="container">
+    <div class="step-section">
+      <div class="step-wrapper">
+
+        <p>{{'If you have any questions about changing, canceling or booking a reservation, please contact us below.'|tf}}</p>
+
+        <span class="icon-accent ion-ios-mail text-center"></span>
+        <h4 class="heading-center">{{'Inquiry by E-mail'|tf}}</h4>
+        <a href="{{ self.Router().linkto(InquiryController) }}" class="button button-contact">{{'Contact us from here'|tf}}</a>
+      </div>
+    </div>
+  </div>
+
+</main>

@@ -1,0 +1,98 @@
+{% set AdminModel = 'Project\\AdminUser\\Model\\AdminModel' %}
+{% set ListController = 'Project\\AdminUser\\Admin\\Controller\\AdminUser\\ListController' %}
+{% set form  = self.Form %}
+<section class="content" id="main">
+
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{form.start}}
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-8 inputArea">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ AdminModel|ProxyStatic('getPropertyLabel', 'adminId') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{admin.adminId}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ AdminModel|ProxyStatic('getPropertyLabel', 'login') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{admin.login}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ AdminModel|ProxyStatic('getPropertyLabel', 'adminName') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{admin.adminName}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ AdminModel|ProxyStatic('getPropertyLabel', 'adminKana') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{admin.adminKana}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ AdminModel|ProxyStatic('getPropertyLabel', 'email') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{admin.email}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">{{ AdminModel|ProxyStatic('getPropertyLabel', 'lastLoginDate') }}</label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{admin.lastLoginDate is empty ? "" : admin.lastLoginDate|date('Y年m月d日 H:i:s')}}
+                                        </p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-t-0 m-b-40 hidden-xs hidden-sm">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2 text-center">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                {{form.end}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

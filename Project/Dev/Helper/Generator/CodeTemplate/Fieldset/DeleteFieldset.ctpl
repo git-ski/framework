@@ -1,0 +1,44 @@
+<?php
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Fieldset;
+
+use Std\FormManager\Fieldset;
+use Std\FormManager\Element\Id;
+use Std\ValidatorManager\ValidatorInterface;
+use {{useEntity}};
+use {{useEntityModel}};
+
+/**
+ * {{EntityClass}}DeleteFieldset
+ */
+class {{EntityClass}}DeleteFieldset extends Fieldset
+{
+    protected $name = '{{entity|lcfirst}}';
+
+    /**
+     * getDefaultFieldset
+     *
+     * @return array
+     */
+    public function getDefaultFieldset() : array
+    {
+        return [
+            '{{EntityIdLabel}}' => [
+                'type'      => Id::class,
+                'options'   => [
+                    'target' => {{EntityClass}}::class,
+                    'action' => {{EntityModel}}::ACTION_DELETE
+                ],
+                'inputSpecification' => [
+                    'required'      => true,
+                    'validators'    => [
+                        [
+                            'name'  => 'NotEmpty',
+                        ],
+                    ]
+                ]
+            ]
+        ];
+    }
+}

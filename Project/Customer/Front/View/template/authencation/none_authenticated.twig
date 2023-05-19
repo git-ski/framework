@@ -1,0 +1,4 @@
+{% set LoginController = 'Project\\Customer\\Front\\Controller\\Login\\LoginController' %}
+{% set ProvisionalController = 'Project\\Customer\\Front\\Controller\\Customer\\ProvisionalController' %}
+<li><a href="{{self.router.linkto(LoginController)}}">{{'Login'|tf}}</a></li>
+<li><a href="{{self.router.linkto(ProvisionalController)}}">{{'Create an Account'|tf}}</a></li>

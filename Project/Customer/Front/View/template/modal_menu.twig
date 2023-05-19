@@ -1,0 +1,21 @@
+<div class="modal common-menu" id="modal-menu">
+  <!-- todo: make me scrollable -->
+  <button class="modal-close-button common-menu-close js-common-menu-close" data-modal-close="modal-menu">
+    <span></span>
+    <span></span>
+    <p class="label-txt">close</p>
+  </button>
+  <nav class="common-menu-nav">
+    <h2 class="heading-center">menu</h2>
+    <ul class="common-menu-primary">
+      {{self.containers.MenuMiddle.content | saferaw}}
+    </ul>
+    <div class="common-menu-lang no-pc-flex">
+      {{self.containers.MenuTop.content | saferaw}}
+    </div>
+    <ul class="common-menu-secondary">
+      {{self.containers.MenuBottom.content | saferaw}}
+    </ul>
+  </nav>
+</div>
+

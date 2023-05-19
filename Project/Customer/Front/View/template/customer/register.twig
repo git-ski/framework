@@ -1,0 +1,162 @@
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set form = self.form %}
+{{dump(form.message)}}
+<main class="main lower-mypage">
+    {{ form.start }}
+    {{ form.fieldsets.customer.elements.customerId | saferaw }}
+        <div class="container mt-30 mb-20">
+            <div class="step-section">
+                <div class="step-wrapper step5">
+                    {{ self.getContainer('Steps').getContent() | saferaw }}
+                    <p class="text-center mt-20">{{'Please input in the following and click "confirm".'|tf}}</p>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form-section">
+                    <div class="form-col2">
+                        <div class="form-inner {{ form.fieldsets.customer.elements.nameSei.errorClass }}">
+                            <h4 class="">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerNameSei') }}</h4>
+                            {{ form.fieldsets.customer.elements.nameSei.error | saferaw }}
+                            {{ form.fieldsets.customer.elements.nameSei | saferaw }}
+                        </div>
+                        <div class="form-inner {{ form.fieldsets.customer.elements.nameMei.errorClass }}">
+                            <h4 class="">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerNameMei') }}</h4>
+                            {{ form.fieldsets.customer.elements.nameMei.error | saferaw }}
+                            {{ form.fieldsets.customer.elements.nameMei | saferaw }}
+                        </div>
+                    </div>
+                    {% if isLocaleJapan %}
+                        <div class="form-col2">
+                            <div class="form-inner {{ form.fieldsets.customer.elements.kanaSei.errorClass }}">
+                                <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerKanaSei') }}</h4>
+                                {{ form.fieldsets.customer.elements.kanaSei.error | saferaw }}
+                                {{ form.fieldsets.customer.elements.kanaSei | saferaw }}
+                            </div>
+                            <div class="form-inner {{ form.fieldsets.customer.elements.kanaMei.errorClass }}">
+                                <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerKanaMei') }}</h4>
+                                {{ form.fieldsets.customer.elements.kanaMei.error | saferaw }}
+                                {{ form.fieldsets.customer.elements.kanaMei | saferaw }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="form-col2">
+                        <div class="form-inner {{ form.fieldsets.customer.elements.Country.errorClass }}">
+                            <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerCountry') }}</h4>
+                            {{ form.fieldsets.customer.elements.Country.error | saferaw }}
+                            <div class="select-box">
+                                {{ form.fieldsets.customer.elements.Country | saferaw }}
+                                <div class="select-box-icon">
+                                    <span class="ion-ios-arrow-down icon"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col2">
+                        <div class="form-inner {{ form.fieldsets.customer.elements.zipCd.errorClass }}">
+                            <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerZipCd') }}</h4>
+                            {{ form.fieldsets.customer.elements.zipCd.error | saferaw }}
+                            {{ form.fieldsets.customer.elements.zipCd | saferaw }}
+                        </div>
+                        {% if isLocaleJapan %}
+                            <div class="form-inner {{ form.fieldsets.customer.elements.Prefecture.errorClass }}">
+                                <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerPrefecture') }}</h4>
+                                {{ form.fieldsets.customer.elements.Prefecture.error | saferaw }}
+                                <div class="select-box">
+                                    {{ form.fieldsets.customer.elements.Prefecture | saferaw }}
+                                    <div class="select-box-icon">
+                                        <span class="ion-ios-arrow-down icon"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-col2">
+                        <div class="form-inner {{ form.fieldsets.customer.elements.address01.errorClass }}">
+                            <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerAddress01') }}</h4>
+                            {{ form.fieldsets.customer.elements.address01.error | saferaw }}
+                            {{ form.fieldsets.customer.elements.address01 | saferaw }}
+                        </div>
+                        <div class="form-inner {{ form.fieldsets.customer.elements.address02.errorClass }}">
+                            <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerAddress02') }}</h4>
+                            {{ form.fieldsets.customer.elements.address02.error | saferaw }}
+                            {{ form.fieldsets.customer.elements.address02 | saferaw }}
+                        </div>
+                    </div>
+                    <div class="form-col1 {{ form.fieldsets.customer.elements.address03.errorClass }}">
+                        <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerAddress03') }}</h4>
+                        {{ form.fieldsets.customer.elements.address03.error | saferaw }}
+                        {{ form.fieldsets.customer.elements.address03 | saferaw }}
+                    </div>
+                </div>
+                <div class="form-section">
+                    <div class="form-col1 {{ form.fieldsets.customer.elements.phone.errorClass }}">
+                        <h4 class="">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerPhone') }}</h4>
+                        {{ form.fieldsets.customer.elements.phone.error | saferaw }}
+                        {{ form.fieldsets.customer.elements.phone | saferaw }}
+                    </div>
+                    <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerBirthDate') }}</h4>
+                    {{ form.fieldsets.customer.elements.birthDateCheck.error | saferaw }}
+                    <div class="form-col3">
+                        <div class="form-inner {{ form.fieldsets.customer.elements.birthDateYear.errorClass }}">
+                            {{ form.fieldsets.customer.elements.birthDateYear.error | saferaw }}
+                            <div class="select-box">
+                                {{ form.fieldsets.customer.elements.birthDateYear | saferaw }}
+                                <div class="select-box-icon">
+                                    <span class="ion-ios-arrow-down icon"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inner {{ form.fieldsets.customer.elements.birthDateMonth.errorClass }}">
+                            {{ form.fieldsets.customer.elements.birthDateMonth.error | saferaw }}
+                            <div class="select-box">
+                                {{ form.fieldsets.customer.elements.birthDateMonth | saferaw }}
+                                <div class="select-box-icon">
+                                    <span class="ion-ios-arrow-down icon"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-inner {{ form.fieldsets.customer.elements.birthDateDay.errorClass }}">
+                            {{ form.fieldsets.customer.elements.birthDateDay.error | saferaw }}
+                            <div class="select-box">
+                                {{ form.fieldsets.customer.elements.birthDateDay | saferaw }}
+                                <div class="select-box-icon">
+                                    <span class="ion-ios-arrow-down icon"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="{{ form.fieldsets.customer.elements.sexTypeId.errorClass }}">
+                        <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'sexTypeId') }}</h4>
+                        {{ form.fieldsets.customer.elements.sexTypeId.error | saferaw }}
+                        {{ form.fieldsets.customer.elements.sexTypeId | saferaw }}
+                    </div>
+                    <div class="{{ form.fieldsets.customer.elements.mailmagazineReceiveFlag.errorClass }}">
+                        <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'mailmagazineReceiveFlag') }}</h4>
+                        {{ form.fieldsets.customer.elements.mailmagazineReceiveFlag.error | saferaw }}
+                        {{ form.fieldsets.customer.elements.mailmagazineReceiveFlag | saferaw }}
+                    </div>
+                    <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontEmail') }}</h4>
+                    <p class="confirm ">{{ form.fieldsets.customer.elements.email.value }}</p>
+                    <div class="form-col1 {{ form.fieldsets.customer.elements.login.errorClass }}">
+                        <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontLogin') }}</h4>
+                        {{ form.fieldsets.customer.elements.login.error | saferaw }}
+                        {{ form.fieldsets.customer.elements.login | saferaw }}
+                    </div>
+                    <div class="form-col1 {{ form.fieldsets.customer.elements.customerPassword.errorClass }}">
+                        <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerPassword') }}</h4>
+                        {{ form.fieldsets.customer.elements.customerPassword.error | saferaw }}
+                        {{ form.fieldsets.customer.elements.customerPassword | saferaw }}
+                    </div>
+                    <div class="form-col1 {{ form.fieldsets.customer.elements.customerPasswordConfirm.errorClass }}">
+                        <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerPasswordConfirm') }}</h4>
+                        {{ form.fieldsets.customer.elements.customerPasswordConfirm.error | saferaw }}
+                        {{ form.fieldsets.customer.elements.customerPasswordConfirm | saferaw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cv-area">
+            {{ form.elements.submit | saferaw }}
+        </div>
+    {% do form.end %}
+</main>

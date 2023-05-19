@@ -1,0 +1,67 @@
+<?php
+/**
+ * PHP version 7
+ * File AutoloadTest.php
+ *
+ * @category UnitTest
+ * @package  Framework\MailerService
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+namespace {{module|ucfirst}}\Tests;
+
+use PHPUnit\Framework\TestCase;
+use Framework\ObjectManager\ObjectManager;
+use {{module|ucfirst}}\{{class|ucfirst}}Interface;
+use {{module|ucfirst}}\{{class|ucfirst}}AwareInterface;
+use {{module|ucfirst}}\{{class|ucfirst}}AwareTrait;
+use {{module|ucfirst}}\{{class|ucfirst}};
+
+/**
+ * Class AutoloadTest
+ *
+ * @category UnitTest
+ * @package  Framework\MailerService
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class AutoloadTest extends TestCase
+{
+    /**
+     * Method testAutoload
+     *
+     * @return  null
+     * @example
+     * @since
+     */
+    public function testAutoload()
+    {
+        // interface
+        $this->assertTrue(interface_exists({{class|ucfirst}}Interface::class));
+        $this->assertTrue(interface_exists({{class|ucfirst}}AwareInterface::class));
+        // class
+        $this->assertTrue(class_exists({{class|ucfirst}}::class));
+        // trait
+        $this->assertTrue(trait_exists({{class|ucfirst}}AwareTrait::class));
+    }
+
+    /**
+     * Method testInstance
+     *
+     * @return  null
+     * @example
+     * @since
+     */
+    public function testInstance()
+    {
+        $ObjectManager = ObjectManager::getSingleton();
+        ${{class|ucfirst}} = $ObjectManager->create(
+            {{class|ucfirst}}Interface::class,
+            {{class|ucfirst}}::class
+        );
+        $this->assertInstanceOf({{class|ucfirst}}Interface::class, ${{class|ucfirst}});
+    }
+}

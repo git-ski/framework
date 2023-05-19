@@ -1,0 +1,84 @@
+<?php
+/**
+ * PHP version 7
+ * File RegisterController.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Project\Base\Front\Controller\AbstractController;
+use Std\ViewModel\ViewModelManager;
+use {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}}\RegisterViewModel;
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\RegisterModel as {{EntityClass}}RegisterModel;
+
+/**
+ * Class RegisterController
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class RegisterController extends AbstractController
+{
+    /**
+     * Method index
+     *
+     * @return RegisterViewModel
+     */
+    public function index(): RegisterViewModel
+    {
+        return $this->getViewModelManager()->getViewModel(
+            [
+                'viewModel' => RegisterViewModel::class,
+                'data'      => [
+                ],
+                'listeners' => [
+                    RegisterViewModel::TRIGGER_FORMFINISH => [$this, 'onRegisterFinish']
+                ]
+            ]
+        );
+    }
+
+    /**
+     * Method onRegisterFinish
+     *
+     * @param \Framework\EventManager\Event $event 'Event'
+     *
+     * @return void
+     */
+    public function onRegisterFinish(\Framework\EventManager\Event $event): void
+    {
+        $ViewModel = $event->getTarget();
+        ${{entity|lcfirst}} = $ViewModel->getForm()->getData()['{{entity|lcfirst}}'];
+        ${{EntityClass}}RegisterModel = $this->getObjectManager()->get({{EntityClass}}RegisterModel::class);
+        ${{entity|lcfirst}}Entity = ${{EntityClass}}RegisterModel->create(${{entity|lcfirst}});
+        $this->triggerEvent(self::TRIGGER_AFTER_CREATE, ${{entity|lcfirst}}Entity);
+        $this->getRouter()->redirect(ListController::class);
+    }
+
+    /**
+     * Method getPageInfo
+     *
+     * @return Array
+     */
+    public static function getPageInfo(): array
+    {
+        return [
+            'description'   => '{{EntityClass}} 登録',
+            'priority'      => 2,
+            'menu'          => true,
+            'icon'          => '<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>',
+            'group'         => '{{EntityClass}} 管理',
+            'groupIcon'     => '<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>',
+        ];
+    }
+}

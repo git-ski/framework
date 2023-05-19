@@ -1,0 +1,20 @@
+<?php
+{% if useEntityModel %}
+use {{useEntityModel}};
+{% endif %}
+?>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="white-box">
+            <h3 class="box-title"> 項目タイトル </h3>
+            <small> 項目サブタイトル </small>
+            <p> </p>
+            <div>
+                項目内容
+            </div>
+            <p></p>
+        </div>
+    </div>
+  </div>
+</div>

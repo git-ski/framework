@@ -1,0 +1,27 @@
+{% set ForgotController = 'Project\\Customer\\Front\\Controller\\Login\\ForgotController' %}
+{% set InquiryController = 'Project\\Inquiry\\Front\\Controller\\Inquiry\\InquiryController' %}
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set CustomerReminderModel = 'Project\\Customer\\Model\\CustomerReminderModel' %}
+{% set form = self.form %}
+<main class="main lower-mypage">
+    <div class="container mt-30 mb-20">
+        <div class="step-section">
+            <div class="step-wrapper step4">
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+                <p class="mt-20">{{'We sent an e-mail with the URL of the password reset page to the e-mail address you entered.'|tf}}</p>
+                <p>{{'Please access the password reset page described in the e-mail within %reminderExpiration% minutes, enter the following authentication key and reset the password.'|tf|replace({'%reminderExpiration%':reminderExpiration})}}</p>
+                <form class="">
+                    <div class="form-col1">
+                        <h4 class="mt-20">{{ CustomerReminderModel|ProxyStatic('getPropertyLabel', 'frontVerifyHashKey') }}</h4>
+                        <input type="tel" class="input-text" readonly="readonly" placeholder="認証キー" value="{{ self.getData('CustomerReminder').verifyHashKey }}">
+                    </div>
+                </form>
+                <div class="note-area mt-40">
+                    <p>・{{'The authentication key is necessary information when entering the password. Please keep it until you have reset your password.'|tf}}</p>
+                    <p>・{{'If you do not reset your password after %reminderExpiration% minutes, the password reset page will be invalid so please '|tf|replace({'%reminderExpiration%':reminderExpiration})}}<a href="{{ self.Router().linkto(ForgotController) }}">{{'enter your e-mail address '|tf}}</a>{{'again.'|tf}}</p>
+                    <p>・{{'If you do not receive the password reset email even if you wait for a while, please '|tf}}<a href="{{ self.Router().linkto(InquiryController) }}">{{'contact us '|tf}}</a>{{'though it is sorry to trouble you.'|tf}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,401 @@
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set ListController = 'Project\\Customer\\Admin\\Controller\\Customer\\ListController'%}
+{% set form  = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{ form.start }}
+                    <div class="form-horizontal">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group {{form.fieldsets.customer.elements.customerId.errorClass}}">
+                                        {{ form.fieldsets.customer.elements.customerId.error }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.nameSei.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'nameSei')}}
+                                            {% if form.fieldsets.customer.elements.nameSei.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.nameSei | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.nameSei.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.nameMei.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'nameMei')}}
+                                            {% if form.fieldsets.customer.elements.nameMei.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.nameMei | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.nameMei.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.kanaSei.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'kanaSei')}}
+                                            {% if form.fieldsets.customer.elements.kanaSei.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.kanaSei | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.kanaSei.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.kanaMei.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'kanaMei')}}
+                                            {% if form.fieldsets.customer.elements.kanaMei.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.kanaMei | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.kanaMei.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.login.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'login')}}
+                                            {% if form.fieldsets.customer.elements.login.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.login | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.login.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.Country.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'Country')}}
+                                            {% if form.fieldsets.customer.elements.Country.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                             <div class="form-line">
+                                               {{ form.fieldsets.customer.elements.Country | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.Country.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.zipCd.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'zipCd')}}
+                                            {% if form.fieldsets.customer.elements.zipCd.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.zipCd | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.zipCd.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.Prefecture.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'Prefecture')}}
+                                            {% if form.fieldsets.customer.elements.Prefecture.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.Prefecture | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.Prefecture.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.address01.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'address01')}}
+                                            {% if form.fieldsets.customer.elements.address01.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.address01 | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.address01.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.address02.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'address02')}}
+                                            {% if form.fieldsets.customer.elements.address02.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.address02 | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.address02.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.address03.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'address03')}}
+                                            {% if form.fieldsets.customer.elements.address03.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.address03 | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.address03.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.email.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'email')}}
+                                            {% if form.fieldsets.customer.elements.email.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.email | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.email.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.phone.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'phone')}}
+                                            {% if form.fieldsets.customer.elements.phone.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.phone | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.phone.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.birthDate.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'birthDate')}}
+                                            {% if form.fieldsets.customer.elements.birthDate.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.customer.elements.birthDate | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.birthDate.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.sexTypeId.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'sexTypeId')}}
+                                            {% if form.fieldsets.customer.elements.sexTypeId.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            {{ form.fieldsets.customer.elements.sexTypeId | saferaw }}
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.sexTypeId.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.mailmagazineReceiveFlag.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'mailmagazineReceiveFlag')}}
+                                            {% if form.fieldsets.customer.elements.mailmagazineReceiveFlag.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            {{ form.fieldsets.customer.elements.mailmagazineReceiveFlag | saferaw }}
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.mailmagazineReceiveFlag.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.defaultLanguage.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'defaultLanguage')}}
+                                            {% if form.fieldsets.customer.elements.defaultLanguage.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            {{ form.fieldsets.customer.elements.defaultLanguage | saferaw }}
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.defaultLanguage.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.customer.elements.sendMailToCustomer.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ CustomerModel|ProxyStatic('getPropertyLabel', 'sendMailToCustomer')}}
+                                            {% if form.fieldsets.customer.elements.sendMailToCustomer.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            {{ form.fieldsets.customer.elements.sendMailToCustomer | saferaw }}
+                                            <label class="error">
+                                                {{ form.fieldsets.customer.elements.sendMailToCustomer.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            {{ self.containers.SubForm.content | saferaw }}
+                        </fieldset>
+                        <hr class="m-t-20 m-b-40">
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {{ form.end }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

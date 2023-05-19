@@ -1,0 +1,88 @@
+<?php
+/**
+ * PHP version 7
+ * File DeleteController.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Project\Base\Front\Controller\AbstractController;
+use Std\ViewModel\ViewModelManager;
+use {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}}\DeleteViewModel;
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\DeleteModel as {{EntityClass}}DeleteModel;
+
+/**
+ * Class DeleteController
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class DeleteController extends AbstractController
+{
+    /**
+     * Method index
+     *
+     * @param integer|str $id EntityId
+     *
+     * @return DeleteViewModel
+     */
+    public function index($id): DeleteViewModel
+    {
+        ${{EntityClass}}DeleteModel = $this->getObjectManager()->get({{EntityClass}}DeleteModel::class);
+        ${{EntityClass}}   = ${{EntityClass}}DeleteModel->get($id);
+        if (!${{EntityClass}}) {
+            $this->getRouter()->redirect(ListController::class);
+        }
+        return $this->getViewModelManager()->getViewModel([
+            'viewModel' => DeleteViewModel::class,
+            'data'      => [
+                '{{entity|lcfirst}}' => ${{EntityClass}},
+            ],
+            'listeners' => [
+                DeleteViewModel::TRIGGER_FORMFINISH => [$this, 'onDeleteFinish']
+            ],
+        ]);
+    }
+
+    /**
+     * Method onDeleteFinish
+     *
+     * @param \Framework\EventManager\Event $event 'Event'
+     *
+     * @return void
+     */
+    public function onDeleteFinish(\Framework\EventManager\Event $event): void
+    {
+        $ViewModel = $event->getTarget();
+        ${{EntityClass|lcfirst}}  = $ViewModel->getForm()->getData()['{{entity|lcfirst}}'];
+        ${{EntityClass}}DeleteModel = $this->getObjectManager()->get({{EntityClass}}DeleteModel::class);
+        ${{EntityClass}}          = ${{EntityClass}}DeleteModel->get(${{EntityClass|lcfirst}}['{{EntityIdLabel}}']);
+        ${{EntityClass}}DeleteModel->delete(${{EntityClass}});
+        $this->triggerEvent(self::TRIGGER_AFTER_DELETE, ${{EntityClass}});
+        // $this->getRouter()->redirect(ListController::class);
+    }
+
+    /**
+     * Method getPageInfo
+     *
+     * @return Array
+     */
+    public static function getPageInfo(): array
+    {
+        return [
+            'description'   => '{{EntityClass}} 削除',
+            'priority'      => 0,
+            'menu'          => false,
+        ];
+    }
+}

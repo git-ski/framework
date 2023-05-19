@@ -1,0 +1,27 @@
+<?php
+/**
+ * PHP version 7
+ * File {{class|ucfirst}}Interface.php
+ *
+ * @category {{class|ucfirst}}
+ * @package  {{module|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}};
+
+/**
+ * Interface {{class|ucfirst}}
+ *
+ * @category Interface
+ * @package  {{module|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+interface {{class|ucfirst}}Interface
+{
+}

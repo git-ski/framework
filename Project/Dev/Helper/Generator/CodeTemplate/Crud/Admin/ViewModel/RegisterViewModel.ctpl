@@ -1,0 +1,83 @@
+<?php
+/**
+ * PHP version 7
+ * File RegisterViewModel.php
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}};
+
+use Std\ViewModel\FormViewModel;
+use Project\Base\Admin\View\Layout\AdminPageLayout;
+use {{useRegisterFieldset}};
+use Project\Base\Admin\View\ViewModel\BreadcrumbViewModel;
+
+/**
+ * Class RegisterViewModel
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class RegisterViewModel extends FormViewModel
+{
+    protected $template = '/template/{{namespace|lcfirst}}/register.twig';
+    protected $confirmTemplate = '/template/{{namespace|lcfirst}}/register.twig';
+    protected $finishTemplate = null;
+
+    protected $config = [
+        'layout' => AdminPageLayout::class,
+        'scripts' => [
+        ],
+        'styles' => [
+        ],
+        'container' => [
+            'Breadcrumb' => [
+                [
+                    'viewModel' => BreadcrumbViewModel::class,
+                ]
+            ],
+        ],
+    ];
+
+    public $listeners = [
+        self::TRIGGER_BEFORE_RENDER => 'onRender',
+    ];
+
+    protected $fieldset = [
+        {{RegisterFieldset}}::class
+    ];
+
+    /**
+     * Method GetTemplateDir
+     *
+     * @return string templateDir
+     */
+    public function getTemplateDir(): string
+    {
+        return __DIR__ . '/..{{ns}}';
+    }
+
+    /**
+     * Method onRender
+     *
+     * @return void
+     */
+    public function onRender(): void
+    {
+        $form = $this->getForm();
+        $form->submit->addClass('btn btn-block bg-deep-orange');
+        $form->submit->setValue('登録する');
+        if (!$form->isConfirmed()) {
+            $form->submit->setValue('確認する');
+        }
+    }
+}

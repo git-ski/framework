@@ -1,0 +1,158 @@
+{% set AdminModel = 'Project\\AdminUser\\Model\\AdminModel' %}
+{% set ListController = 'Project\\AdminUser\\Admin\\Controller\\AdminUser\\ListController' %}
+{% set form  =  self.Form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{form.start}}
+                    {{form.fieldsets.admin.elements.adminId}}
+                    <div class="form-horizontal">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.admin.elements.login.errorClass}}">
+                                        <label class="col-md-4 control-label">
+                                            {{ AdminModel|ProxyStatic('getPropertyLabel', 'login')}}
+                                            {% if form.fieldsets.admin.elements.login.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-8">
+                                            <div class="form-line">
+                                                {{form.fieldsets.admin.elements.login|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.admin.elements.login.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.admin.elements.adminName.errorClass}}">
+                                        <label class="col-md-4 control-label">
+                                            {{ AdminModel|ProxyStatic('getPropertyLabel', 'adminName')}}
+                                            {% if form.fieldsets.admin.elements.adminName.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-8">
+                                            <div class="form-line">
+                                                {{form.fieldsets.admin.elements.adminName|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.admin.elements.adminName.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.admin.elements.adminKana.errorClass}}">
+                                        <label class="col-md-4 control-label">
+                                            {{ AdminModel|ProxyStatic('getPropertyLabel', 'adminKana')}}
+                                            {% if form.fieldsets.admin.elements.adminKana.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-8">
+                                            <div class="form-line">
+                                                {{form.fieldsets.admin.elements.adminKana|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.admin.elements.adminKana.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.admin.elements.adminPassword.errorClass}}">
+                                        <label class="col-md-4 control-label">
+                                        {{ AdminModel|ProxyStatic('getPropertyLabel', 'adminPassword')}}
+                                        {% if form.fieldsets.admin.elements.adminPassword.isRequired %}
+                                            <label class="error">(必須)</label>
+                                        {% endif %}
+                                        </label>
+                                        <div class="col-md-8">
+                                            <div class="form-line">
+                                                {{form.fieldsets.admin.elements.adminPassword|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.admin.elements.adminPassword.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.admin.elements.adminPasswordConfirm.errorClass}}">
+                                        <label class="col-md-4 control-label">
+                                            {{ AdminModel|ProxyStatic('getPropertyLabel', 'adminPasswordConfirm')}}
+                                            {% if form.fieldsets.admin.elements.adminPasswordConfirm.isRequired %}        <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-8">
+                                            <div class="form-line">
+                                                {{form.fieldsets.admin.elements.adminPasswordConfirm|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.admin.elements.adminPasswordConfirm.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{form.fieldsets.admin.elements.email.errorClass}}">
+                                        <label class="col-md-4 control-label">
+                                            {{ AdminModel|ProxyStatic('getPropertyLabel', 'email')}}
+                                            {% if form.fieldsets.admin.elements.email.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}</label>
+                                        <div class="col-md-8">
+                                            <div class="form-line">
+                                                {{form.fieldsets.admin.elements.email|saferaw}}
+                                            </div>
+                                            <label class="error">
+                                                {{form.fieldsets.admin.elements.email.error|saferaw}}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{self.containers.SubForm.content|saferaw}}
+                        </fieldset>
+                        <hr class="m-t-0 m-b-40">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2 text-center">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    {{form.end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,56 @@
+<?php
+/**
+ * PHP version 7
+ * File RegisterViewModel.php
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}};
+
+use Std\ViewModel\FormViewModel;
+use Project\Base\Front\View\Layout\FrontPageLayout;
+use {{useRegisterFieldset}};
+
+/**
+ * Class RegisterViewModel
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class RegisterViewModel extends FormViewModel
+{
+    protected $template = '/template/{{namespace|lcfirst}}/register.phtml';
+    protected $confirmTemplate = '/template/{{namespace|lcfirst}}/register.phtml';
+    protected $finishTemplate = null;
+
+    protected $config = [
+        'layout' => FrontPageLayout::class,
+        'scripts' => [
+        ],
+        'styles' => [
+        ],
+    ];
+
+    protected $fieldset = [
+        {{RegisterFieldset}}::class
+    ];
+
+    /**
+     * Method GetTemplateDir
+     *
+     * @return string templateDir
+     */
+    public function getTemplateDir(): string
+    {
+        return __DIR__ . '/..{{ns}}';
+    }
+}

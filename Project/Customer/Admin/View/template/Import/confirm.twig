@@ -1,0 +1,48 @@
+{% set form  = self.form %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">{{ title }}確認</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% set form = self.form %}
+                    {{ form.start }}
+                    <div class="form-horizontal">
+                    {{ form.fieldsets.file.elements.fileId | saferaw }}
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group {{ form.fieldset.file.elements.file.errorClass }}">
+                                    <label class="control-label col-md-3">ファイル</label>
+                                    <div class="col-md-9">
+                                        {{ form.fieldsets.file.elements.file | saferaw }}
+                                        {{ form.fieldsets.file.elements.file.error | saferaw }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        {{ self.getContainer('SubForm').getContent() | saferaw }}
+                    </fieldset>
+                    <hr class="m-t-20 m-b-40">
+
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-2">
+                                {{ form.elements.submit | saferaw }}
+                            </div>
+                            <div class="col-md-5"></div>
+                        </div>
+                    </fieldset>
+                    </div>
+                    {% do form.end %}
+                </div>
+            </div>
+        </div>
+    </div>

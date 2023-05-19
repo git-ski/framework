@@ -1,0 +1,41 @@
+{% set form = self.form %}
+<div class="container-fluid">
+{{self.containers.Breadcrumb.content | saferaw}}
+
+    <section id="wrapper" class="step-register">
+        <div id="msform">
+        {{form.start}}
+        <fieldset>
+            {{ self.containers.SubForm.content | saferaw}}
+            <div class="form-group text-left row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  アプリ「{{authRequest.client.name}}」が下記情報を使用しようとしています。
+                  許可しますか？
+                </div>
+            </div>
+            <div class="form-group text-left row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  {% for scope in authRequest.scopes %}
+                    {{scope.identifier}}: {{scope.description}} <br/>
+                  {% endfor %}
+                </div>
+            </div>
+            <div class="form-group text-left row">
+                <div class="col-md-4"></div>
+                <div class="col-md-2">
+                    {% do form.fieldsets.authorization.elements.approve.setValue('拒否') %}
+                    {{form.fieldsets.authorization.elements.approve | saferaw}}
+                </div>
+                <div class="col-md-2">
+                    {% do form.fieldsets.authorization.elements.approve.setValue('許可') %}
+                    {{form.fieldsets.authorization.elements.approve | saferaw}}
+                </div>
+            </div>
+            <br>
+        </fieldset>
+        {{form.end}}
+        </div>
+    </section>
+</div>

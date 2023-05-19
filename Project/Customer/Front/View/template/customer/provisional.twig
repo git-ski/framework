@@ -1,0 +1,34 @@
+{% set CustomerTemporaryLModel = 'Project\\Customer\\Model\\CustomerTemporaryLModel' %}
+{% set form = self.form %}
+
+<main class="main lower-mypage">
+    {{ form.start }}
+        <div class="container mt-30 mb-20">
+            <div class="step-section mb-0">
+                <div class="step-wrapper step5">
+                    {{ self.containers.Steps.content | saferaw }}
+                    <p class="mt-30">{{'Please enter your E-mail address and click "Send".'|tf}}</p>
+                    <p>{{'We will send you an E-mail with the URL to the E-mail address you just entered.'|tf}}</p>
+                    <div class="form-col1">
+                        <div class="{{ form.fieldsets.customerTemporary.elements.email.errorClass }}">
+                            <h3>{{ CustomerTemporaryLModel|ProxyStatic('getPropertyLabel', 'frontCustomerTemporaryEmail') }}</h3>
+                            {{ form.fieldsets.customerTemporary.elements.email.error | saferaw }}
+                            {{ form.fieldsets.customerTemporary.elements.email | saferaw }}
+                        </div>
+                        <h3 class="mt-30">{{ CustomerTemporaryLModel|ProxyStatic('getPropertyLabel', 'frontCustomerTemporaryPolicy') }}</h3>
+                        {{ self.containers.Policy.content | saferaw }}
+                        <div class="text-center">
+                            {{ form.fieldsets.customerTemporary.elements.policy.error | saferaw }}
+                        </div>
+                        <p class="text-center mt-10 {{ form.fieldsets.customerTemporary.elements.policy.errorClass }}">
+                        {{ form.fieldsets.customerTemporary.elements.policy | saferaw }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-container">
+            {{ form.elements.submit | saferaw }}
+        </div>
+    {% do form.end %}
+</main>

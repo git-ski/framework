@@ -1,0 +1,38 @@
+<?php
+/**
+ * PHP version 7
+ * File {{model}}.php
+ *
+ * @category Model
+ * @package  {{module|ucfirst}}\Front
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Std\EntityManager\EntityInterface;
+use {{module|ucfirst}}\Model\{{entity|ucfirst}}Model;
+
+/**
+ * Class {{model}}
+ *
+ * @category Model
+ * @package  {{module|ucfirst}}\Front
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{model}} extends {{entity|ucfirst}}Model
+{
+    public function {{action|lcfirst}}($idOr{{entity|ucfirst}}) : EntityInterface
+    {
+        ${{entity|ucfirst}} = parent::get($idOr{{entity|ucfirst}});
+
+
+        // 処理に応じて、create/update/deleteに変更する。
+        return parent::update(${{entity|ucfirst}});
+    }
+}

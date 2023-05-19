@@ -1,0 +1,230 @@
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set ListController = 'Project\\Customer\\Admin\\Controller\\Customer\\ListController'%}
+{% set form = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{form.start}}
+                    <div class="form-body form-horizontal">
+                        <div class="row">
+                            <div class="col-md-8 inputArea">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'customerId') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.customerId}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'customerNo') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.customerNo}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'nameSei') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.nameSei}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'nameMei') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.nameMei}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'kanaSei') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.kanaSei}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'login') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.login}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'Country') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ customer.Country.CountryName }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'zipCd') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.zipCd}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'Prefecture') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ customer.Prefecture.PrefectureName }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'address01') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.address01}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'address02') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.address02}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'address03') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.address03}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'email') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.address03}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'phone') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.address03}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'birthDate') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{customer.address03}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'mailmagazineReceiveFlag') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ CustomerModel|ProxyStatic('getPropertyValueLabel', 'mailmagazineReceiveFlag', customer.mailmagazineReceiveFlag) }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'memberRegisterDate') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ customer.memberRegisterDate is empty ? "" : customer.memberRegisterDate|date('Y年m月d日') }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'memberWithdrawDate') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ customer.memberWithdrawDate  is empty ? "" : customer.memberWithdrawDate|date('Y年m月d日') }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">
+                                    {{ CustomerModel|ProxyStatic('getPropertyLabel', 'defaultLanguage') }}
+                                    </label>
+                                    <div class="col-md-8">
+                                        <p class="form-control-static">
+                                            {{ CustomerModel|ProxyStatic('getPropertyValueLabel', 'defaultLanguage', customer.defaultLanguage) }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-t-0 m-b-40 hidden-xs hidden-sm">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2 text-center">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                {{form.end}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

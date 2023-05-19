@@ -1,0 +1,12 @@
+{{'Thank you for using our products and services.'|tf}}
+
+{{'We will inform you of your member ID.'|tf}}
+
+{% for Customer in Customers %}
+{{Customer.login}}
+{% endfor %}
+
+－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－
+※{{'This e-mail address is dedicated to distribution only. Those who do not know, please discard them.'|tf}}
+
+{{ self.containers.Signature.content | saferaw }}

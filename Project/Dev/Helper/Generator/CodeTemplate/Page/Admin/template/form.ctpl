@@ -1,0 +1,55 @@
+{% if useEntityModel %}
+[% set {{EntityModel}} = '{{useEntityModel|replace({'\\': '\\\\'})}}' %]
+{% endif %}
+[% set form  = self.form %]
+<section class="content" id="main">
+    <div class="row bg-title">
+        [[self.containers.Breadcrumb.content|saferaw]]
+        <div class="col-md-3">
+            [[ 'FlashMessage' | flash | tf | alert ]]
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    [[form.start]]
+                    <div class="form-body form-horizontal">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-8 inputArea">
+{% for name, property in EntityPropertyList if property.exclude != true %}
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label">[[ {{EntityModel}}|ProxyStatic('getPropertyLabel','{{name}}') ]]</label>
+                                        <div class="col-md-9">
+{% if property.type == "selectJoin" %}
+                                            <p class="form-control-static">[[ {{entity|lcfirst}}.{{name}}.name ]]</p>
+{% else %}
+                                            <p class="form-control-static">[[ {{entity|lcfirst}}.{{name}} ]]</p>
+{% endif %}
+                                        </div>
+                                    </div>
+{% endfor %}
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                        [[self.containers.SubForm.Content | saferaw]]
+                        </fieldset>
+                        <hr class="m-t-0 m-b-40 hidden-xs hidden-sm">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2">
+                                    [[ form.elements.submit | saferaw ]]
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    [[form.end]]
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

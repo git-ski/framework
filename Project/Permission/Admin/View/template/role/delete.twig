@@ -1,0 +1,69 @@
+{% set RoleModel = "Project\\Permission\\Model\\RoleModel" %}
+{% set ListController = 'Project\\Permission\\Admin\\Controller\\Role\\ListController'%}
+{% set form = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{ self.containers.Breadcrumb.content|saferaw }}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                {{form.start}}
+                <div class="form-body">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-8 inputArea">
+                                <div class="form-group {{form.fieldsets.role.elements.roleId.errorClass}}">
+                                    {{form.fieldsets.role.elements.roleId.error | saferaw}}
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{ RoleModel|ProxyStatic('getPropertyLabel', 'roleId') }}</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            {{role.roleId}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{ RoleModel|ProxyStatic('getPropertyLabel', 'role') }}</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            {{role.role}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">{{ RoleModel|ProxyStatic('getPropertyLabel', 'showPriority') }}</label>
+                                    <div class="col-md-9">
+                                        <p class="form-control-static">
+                                            {{role.showPriority}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <hr class="m-t-0 m-b-40 hidden-xs hidden-sm">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-2">
+                                {{ form.elements.submit | saferaw }}
+                            </div>
+                            <div class="col-md-5"></div>
+                        </div>
+                    </fieldset>
+                </div>
+                {{form.end}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

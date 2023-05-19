@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Std\CacheManager;
 
 use Framework\ObjectManager\SingletonInterface;
+use Framework\ObjectManager\ObjectManagerAwareInterface;
 use Framework\ConfigManager\ConfigManagerAwareInterface;
-use Laminas\Cache\StorageFactory;
 use Laminas\Cache\Storage\FlushableInterface;
 use Laminas\Cache\Storage\StorageInterface;
 
@@ -31,10 +31,12 @@ use Laminas\Cache\Storage\StorageInterface;
 class CacheManager implements
     CacheManagerInterface,
     SingletonInterface,
-    ConfigManagerAwareInterface
+    ConfigManagerAwareInterface,
+    ObjectManagerAwareInterface
 {
     use \Framework\ObjectManager\SingletonTrait;
     use \Framework\ConfigManager\ConfigManagerAwareTrait;
+    use \Framework\ObjectManager\ObjectManagerAwareTrait;
 
     private $cachePool = [];
 
@@ -49,7 +51,7 @@ class CacheManager implements
     public function setCache($section, $cacheOrOptions)
     {
         if (!$cacheOrOptions instanceof StorageInterface) {
-            $cacheOrOptions = StorageFactory::factory($cacheOrOptions);
+            $cacheOrOptions  = new \Laminas\Cache\Storage\Adapter\Memory();
         }
         $this->cachePool[$section] = $cacheOrOptions;
         return $this;

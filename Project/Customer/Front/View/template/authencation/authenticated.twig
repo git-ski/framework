@@ -1,0 +1,4 @@
+{% set LogoutController = 'Project\\Customer\\Front\\Controller\\Login\\LogoutController' %}
+{% set ProfileController = 'Project\\Customer\\Front\\Controller\\Customer\\ProfileController' %}
+<li><a href="{{self.router.linkto(LogoutController)}}">{{'Logout'|tf}}</a></li>
+<li><a href="{{self.router.linkto(ProfileController)}}">{{'My page'|tf}}</a></li>

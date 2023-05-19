@@ -1,0 +1,20 @@
+{% set RoleModel = "Project\\Permission\\Model\\RoleModel" %}
+{% set form = self.form %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group {{form.fieldsets.role.elements.roles.errorClass}}">
+            <label class="col-md-4 control-label">
+                {{ RoleModel|ProxyStatic('getPropertyLabel', 'role') }}
+                {% if form.fieldsets.role.elements.roles.isRequired %}
+                    <label class="error">(必須)</label>
+                {% endif %}
+            </label>
+            <div class="col-md-8">
+                {{form.fieldsets.role.elements.roles|saferaw}}
+                <label class="error">
+                    {{form.fieldsets.role.elements.roles.error|saferaw}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

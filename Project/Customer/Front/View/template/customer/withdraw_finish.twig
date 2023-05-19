@@ -1,0 +1,25 @@
+{% set TopController = 'Project\\Base\\Front\\Controller\\Front\\TopController' %}
+<main class="main lower-mypage">
+
+  <!-- 1記事 -->
+  <article class="container col1">
+    <div class="step-section mb-0">
+      <div class="step-wrapper">
+
+        <div class="form-col1">
+            <h4 class="heading-center mb-20">{{'Your withdrawal has been completed.'|tf}}</h4>
+            <p>{{'We are waiting for opportunities to use again. Thank you very much.'|tf}}</p>
+        </div>
+
+      </div>
+    </div>
+  </article>
+  <!-- /1記事 -->
+
+  <div class="btn-container">
+
+    <a class="button button-contact" href="{{ self.Router().linkto(TopController) }}">{{'To TOP'|tf}}</a>
+
+  </div>
+
+</main>

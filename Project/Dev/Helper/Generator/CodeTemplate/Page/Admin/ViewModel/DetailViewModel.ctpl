@@ -1,0 +1,73 @@
+<?php
+/**
+ * PHP version 7
+ * File {{action}}ViewModel.php
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}};
+
+use Std\ViewModel\AbstractViewModel;
+use Project\Base\Admin\View\Layout\AdminPageLayout;
+use {{module|ucfirst}}\{{type|ucfirst}}\Fieldset\{{fieldset}};
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\{{controller}};
+use Project\Base\Front\View\ViewModel\BreadcrumbViewModel;
+
+/**
+ * Class {{action}}ViewModel
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{viewModel}} extends AbstractViewModel
+{
+  protected $template = '/template/{{namespace|lcfirst}}/{{template}}.twig';
+
+    protected $config = [
+        'layout' => AdminPageLayout::class,
+        'scripts' => [
+        ],
+        'styles' => [
+        ],
+        'container' => [
+        ]
+    ];
+
+    public $listeners = [
+        self::TRIGGER_BEFORE_RENDER => 'onRender',
+    ];
+
+    /**
+     * Method GetTemplateDir
+     *
+     * @return string templateDir
+     */
+    public function getTemplateDir(): string
+    {
+        return __DIR__ . '/..{{ns}}';
+    }
+
+    /**
+     * Method onRender
+     *
+     * @return void
+     */
+    public function onRender(): void
+    {
+
+{% if useEntityModel %}
+        $data = $this->getData();
+        $data['detail'] = $data['detail']->toArray();
+        $this->setData($data);
+{% endif %}
+    }
+}

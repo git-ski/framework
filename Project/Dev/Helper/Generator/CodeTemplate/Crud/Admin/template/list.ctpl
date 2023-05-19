@@ -1,0 +1,89 @@
+[% set RegisterController = '{{module|ucfirst|replace({'\\':'\\\\'})}}\\{{type|ucfirst}}\\Controller\\{{namespace|ucfirst}}\\RegisterController' %]
+[% set EditController = '{{module|ucfirst|replace({'\\':'\\\\'})}}\\{{type|ucfirst}}\\Controller\\{{namespace|ucfirst}}\\EditController' %]
+[% set DeleteController = '{{module|ucfirst|replace({'\\':'\\\\'})}}\\{{type|ucfirst}}\\Controller\\{{namespace|ucfirst}}\\DeleteController' %]
+[% set {{EntityModel}} = '{{useEntityModel|replace({'\\': '\\\\'})}}' %]
+[% set form  = self.form %]
+[% set ApiListController = '{{module|ucfirst|replace({'\\':'\\\\'})}}\\Api\\Controller\\{{type|ucfirst}}{{namespace|ucfirst}}ListController' %]
+
+[[ 'FlashMessage' | flash | tf | alert ]]
+
+<section class="content" id="main">
+    <div class="row bg-title">
+        [[self.containers.Breadcrumb.content|saferaw]]
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                [[ form.start ]]
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <div class="form-line">
+                            [[ form.fieldsets.{{entity|lcfirst}}.elements.keyword | saferaw ]]
+                        </div>
+                    </div>
+                    [% if self.Router.linkto(RegisterController) %]
+                    <div class="col-sm-3">
+                        <div class="text-right">
+                            <a href="[[ self.Router.linkto(RegisterController) ]]" class="btn btn-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i> 新規作成</a>
+                        </div>
+                    </div>
+                    [% endif %]
+                </div>
+                <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-2">[[ form.elements.submit.with({class : 'btn btn-block btn-primary'}) | saferaw ]]</div>
+                    <div class="col-sm-5"></div>
+                </div>
+                [[ form.end ]]
+            </div>
+        </div>
+        <div class="card">
+            <div class="body">
+                <table width="100%"
+                    class="table color-table info-table dataTables"
+                    data-wrapper="section#main"
+                    data-form="[[ form.id ]]"
+                    data-fieldset="[[ form.fieldsets.{{entity|lcfirst}}.name ]]"
+                    data-api="[[ self.Router.linkto(ApiListController) ]]"
+                    data-orderby="[[ orderBy | json_encode() ]]">
+                    <thead>
+                        <tr>
+{% for name, property in EntityPropertyList if property.exclude != true %}
+{% if name != EntityIdLabel %}
+                            <th data-sort="{{name}}">[[ {{EntityModel}}|ProxyStatic('getPropertyLabel', '{{name}}') ]]</th>
+{% endif %}
+{% endfor %}
+                            <th class="col-md-2">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        [% for index, {{entity}} in {{entity|lcfirst}} %]
+                            <tr class="[[ index % 2 ? 'even' : 'odd' ]]">
+{% for name, property in EntityPropertyList if property.exclude != true %}
+{% if name != EntityIdLabel %}
+{% if property.entityIdLabel %}
+                                <td>[[ {{entity}}.{{name}}.{{property.entityIdLabel}} ]]</td>
+{% else %}
+                                <td>[[ {{entity}}.{{name}} ]]</td>
+{% endif %}
+{% endif %}
+{% endfor %}
+                                <td class="center">
+                                    [% if self.Router.linkto(EditController) %]
+                                        <a href="[[self.Router.linkto(EditController, {{entity}}.{{EntityIdLabel}})]]" class="btn btn-primary"> 編集</a>
+                                    [% endif %]
+                                    [% if self.Router.linkto(DeleteController) %]
+                                        <a href="[[self.Router.linkto(DeleteController, {{entity}}.{{EntityIdLabel}})]]" class="btn btn-danger"> 削除</a>
+                                    [% endif %]
+                                </td>
+                            </tr>
+                        [% endfor %]
+                    </tbody>
+                </table>
+                <div class="row">
+                    [[ self.containers.Paginator.content | saferaw ]]
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

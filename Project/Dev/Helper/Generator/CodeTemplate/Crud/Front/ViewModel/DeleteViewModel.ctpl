@@ -1,0 +1,78 @@
+<?php
+/**
+ * PHP version 7
+ * File DeleteViewModel.php
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}};
+
+use Std\ViewModel\FormViewModel;
+use Project\Base\Front\View\Layout\FrontPageLayout;
+use {{useDeleteFieldset}};
+
+/**
+ * Class DeleteViewModel
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class DeleteViewModel extends FormViewModel
+{
+    protected $template = '/template/{{namespace|lcfirst}}/delete.phtml';
+    protected $finishTemplate = '/template/{{namespace|lcfirst}}/delete_finish.phtml';
+
+    protected $useConfirm = false;
+
+    protected $config = [
+        'layout' => FrontPageLayout::class,
+        'scripts' => [
+        ],
+        'styles' => [
+        ],
+    ];
+
+    protected $fieldset = [
+        {{DeleteFieldset}}::class
+    ];
+
+
+    public $listeners = [
+        self::TRIGGER_BEFORE_RENDER => 'onRender',
+    ];
+
+    /**
+     * Method GetTemplateDir
+     *
+     * @return string templateDir
+     */
+    public function getTemplateDir(): string
+    {
+        return __DIR__ . '/..{{ns}}';
+    }
+
+    /**
+     * Method onRender
+     *
+     * @return void
+     */
+    public function onRender(): void
+    {
+        $data = $this->getData();
+        $data['{{entity|lcfirst}}'] = $data['{{entity|lcfirst}}']->toArray();
+        $this->setData($data);
+        $form = $this->getForm();
+        $form->setData($data);
+        $form->submit->setValue('削除する');
+        $form->submit->addClass('btn btn-block btn-danger');
+    }
+}

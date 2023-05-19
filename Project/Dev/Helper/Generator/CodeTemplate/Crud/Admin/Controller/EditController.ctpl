@@ -1,0 +1,100 @@
+<?php
+/**
+ * PHP version 7
+ * File EditController.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Project\Base\Admin\Controller\AbstractAdminController;
+use Std\ViewModel\ViewModelManager;
+use {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}}\EditViewModel;
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\EditModel as {{EntityClass}}EditModel;
+use Std\SessionManager\FlashMessage;
+
+/**
+ * Class EditController
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class EditController extends AbstractAdminController
+{
+    /**
+     * Method index
+     *
+     * @param integer|str $id EntityId
+     *
+     * @return EditViewModel
+     */
+    public function index($id): EditViewModel
+    {
+        ${{EntityClass}}EditModel = $this->getObjectManager()->get({{EntityClass}}EditModel::class);
+        ${{EntityClass}} = ${{EntityClass}}EditModel->get($id);
+        if (!${{EntityClass}}) {
+            $this->getRouter()->redirect(ListController::class);
+        }
+        return $this->getViewModelManager()->getViewModel([
+            'viewModel' => EditViewModel::class,
+            'data'      => [
+                '{{entity|lcfirst}}' => ${{EntityClass}},
+            ],
+            'listeners' => [
+                EditViewModel::TRIGGER_FORMFINISH => [$this, 'onEditFinish']
+            ],
+        ]);
+    }
+
+    /**
+     * Method onEditFinish
+     *
+     * @param \Framework\EventManager\Event $event 'Event'
+     *
+     * @return void
+     */
+    public function onEditFinish(\Framework\EventManager\Event $event): void
+    {
+        $ViewModel = $event->getTarget();
+        ${{EntityClass|lcfirst}} = $ViewModel->getForm()->getData()['{{entity|lcfirst}}'];
+        ${{EntityClass}}EditModel = $this->getObjectManager()->get({{EntityClass}}EditModel::class);
+        ${{EntityClass}} = ${{EntityClass}}EditModel->get(${{EntityClass|lcfirst}}['{{EntityIdLabel}}']);
+        ${{EntityClass}}EditModel->update(${{EntityClass}}, ${{EntityClass|lcfirst}});
+        $this->getObjectManager()->get(FlashMessage::class)->add('FlashMessage', 'Updated');
+        $this->triggerEvent(self::TRIGGER_AFTER_UPDATE, ${{EntityClass}});
+        $this->getRouter()->redirect(ListController::class);
+    }
+
+    /**
+     * Method getPageInfo
+     *
+     * @return Array
+     */
+    public static function getPageInfo(): array
+    {
+        return [
+            "title"             => "{{EntityClass}} 編集", // title
+            'description'       => "{{EntityClass}} 編集",
+            "site_name"         => "secure framework", // titleの|以降
+            "lower_title"       => "", // マイページ系の表示タイトル
+            "meta_description"  => "meta_description", // description
+            "meta_keywords"     => "meta_keywords", // keywords
+            "og_title"          => "og_title", // og:title
+            "og_description"    => "og_description", // og:description
+            "og_site_name"      => "og_site_name", // og:site_name
+            "og_type"           => "og_type", // og:type
+            "bodyClass"         => "theme-light-blue",
+            'priority'          => 0,
+            'menu'              => false,
+        ];
+    }
+}

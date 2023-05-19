@@ -1,0 +1,231 @@
+<?php
+/**
+ * PHP version 7
+ * File {{controller}}.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller;
+
+{% if authType == 'admin' %}
+use Project\Base\Api\Controller\AbstractAdminRestfulController;
+{% else %}
+use Project\Base\Api\Controller\AbstractRestfulController;
+{% if authType == 'front' %}
+use Project\Base\Front\Controller\AuthControllerInterface;
+{% endif %}
+{% endif %}
+use {{module|ucfirst}}\{{type|ucfirst}}\Fieldset;
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{model}};
+
+{% if authType == 'admin' %}
+class {{controller}} extends AbstractAdminRestfulController
+{% elseif authType == 'front' %}
+class {{controller}} extends AbstractRestfulController implements
+    AuthControllerInterface
+{% else %}
+class {{controller}} extends AbstractRestfulController
+{% endif %}
+{
+    /**
+     * 登録
+     *
+     * @param array $data
+     * @return array レスポンス
+     */
+    public function create($data)
+    {
+{% if EntityClass %}
+        $Fieldset = $this->getObjectManager()->create(Fieldset\{{EntityClass}}RegisterFieldset::class);
+        $Validator = $Fieldset->getInputFilter();
+        $Validator->setData($data);
+        if ($Validator->isValid()) {
+            $data = $Validator->getValues();
+            ${{model|ucfirst}} = $this->getObjectManager()->get({{model}}::class);
+            ${{entity|ucfirst}} = ${{model|ucfirst}}->create($data);
+
+            return [
+                'success' => true,
+                'data' => $data
+            ];
+        }
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => (array) $Validator->getMessages()
+                ]
+            ];
+{% else %}
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => 'not implements'
+            ]
+        ];
+{% endif %}
+    }
+
+    /**
+     * 参照(一件)
+     *
+     * @param integer $id 参照対象id
+     * @return array レスポンス
+     */
+    public function get($id)
+    {
+{% if EntityClass %}
+        ${{model|ucfirst}} = $this->getObjectManager()->get({{model}}::class);
+        ${{EntityClass}} = ${{model|ucfirst}}->get($id);
+        if (!${{EntityClass}}) {
+            return $this->notFount();
+        }
+        $data = ${{EntityClass}}->toArray();
+        // データをフォーマット
+
+        return [
+            'success' => true,
+            'data' => $data
+        ];
+{% else %}
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => 'not implements'
+            ]
+        ];
+{% endif %}
+    }
+
+    /**
+     * 参照(複数)
+     *
+     * @param array $data 検索条件
+     * @return array レスポンス
+     */
+    public function getList()
+    {
+{% if EntityClass %}
+        $QueryParams = $this->getHttpMessageManager()->getRequest()->getQueryParams();
+        $searchCondition = $QueryParams;
+
+        ${{model|ucfirst}} = $this->getObjectManager()->get({{model}}::class);
+        ${{EntityClass}}List = ${{model|ucfirst}}->getList($searchCondition);
+        $list = [];
+        foreach (${{EntityClass}}List as ${{EntityClass}}) {
+            $data = ${{EntityClass}}->toArray();
+            // データをフォーマット
+
+            $list[] = $data;
+        }
+
+        return [
+            'success' => true,
+            'data' => $list
+        ];
+{% else %}
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => 'not implements'
+            ]
+        ];
+{% endif %}
+    }
+
+    /**
+     * 更新(一件)
+     *
+     * @param integer $id 更新対象id
+     * @param array $data 更新データ
+     * @return array レスポンス
+     */
+    public function update($id, $data)
+    {
+{% if EntityClass %}
+        ${{model|ucfirst}} = $this->getObjectManager()->get({{model}}::class);
+        ${{EntityClass}} = ${{model|ucfirst}}->get($id);
+        if (!${{EntityClass}}) {
+            return $this->notFount();
+        }
+
+        $Fieldset = $this->getObjectManager()->create(Fieldset\{{EntityClass}}EditFieldset::class);
+        $Validator = $Fieldset->getInputFilter();
+        $Validator->set($data);
+        if ($Validator->isValid()) {
+            $data = $Validator->getValues();
+            ${{entity|ucfirst}} = ${{model|ucfirst}}->update(${{EntityClass}}, $data);
+
+            return [
+                'success' => true,
+                'data' => $data
+            ];
+        }
+
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => (array) $Validator->getMessages()
+            ]
+        ];
+{% else %}
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => 'not implements'
+            ]
+        ];
+{% endif %}
+    }
+
+    /**
+     * 削除(一件)
+     *
+     * @param integer $id 削除対象id
+     * @return array レスポンス
+     */
+    public function delete($id)
+    {
+{% if EntityClass %}
+        ${{model|ucfirst}} = $this->getObjectManager()->get({{model}}::class);
+        ${{EntityClass}} = ${{model|ucfirst}}->get($id);
+        if (!${{EntityClass}}) {
+            return $this->notFount();
+        }
+
+        $Fieldset = $this->getObjectManager()->create(Fieldset\{{EntityClass}}DeleteFieldset::class);
+        $Validator = $Fieldset->getInputFilter();
+        $Validator->set([
+            '{{EntityIdLabel}}' => $id
+        ]);
+
+        if ($Validator->isValid()) {
+            ${{entity|ucfirst}} = ${{model|ucfirst}}->delete(${{EntityClass}});
+
+            return [
+                'success' => true,
+                'data' => $data
+            ];
+        }
+
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => (array) $Validator->getMessages()
+            ]
+        ];
+{% else %}
+        return [
+            'success' => false,
+            'data' => [
+                'messages' => 'not implements'
+            ]
+        ];
+{% endif %}
+    }
+}

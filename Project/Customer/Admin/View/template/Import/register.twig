@@ -1,0 +1,79 @@
+{% set form = self.form %}
+{% do form.getElement("reset").setValue('リセット') %}
+{% do form.getElement("submit").setValue('インポート') %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {{ form.start }}
+                    <div class="form-horizontal">
+                        {% if (errors is defined) %}
+                        <fieldset>
+                          <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-8">
+                                  <p>下記のエラーが見つかりました。</p>
+                                  <ul>
+                                    {% for message in errors %}
+                                    <li>{{ message }}</li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                          </div>
+                        </fieldset>
+                        {% else %}
+                        <div class="row">
+                          <div class="col-md-2">
+                          </div>
+                          <div class="col-md-8">
+                            <h4>Csvチェックしました、データをインポート中、少し時間をおいてからインポート結果を確認ください</h4>
+                          </div>
+                        </div>
+                        {% endif %}
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group {{ form.fieldsets.file.elements.file.errorClass }}">
+                                        <label>ファイル</label>
+                                        {{ form.fieldsets.file.elements.file | saferaw }}
+                                        {{ form.fieldsets.file.elements.file.error | saferaw }}
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            {{ self.containers.SubForm.content | saferaw}}
+                        </fieldset>
+                        <hr class="m-t-20 m-b-40">
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {{ form.end }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

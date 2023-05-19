@@ -1,0 +1,31 @@
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set form = self.form %}
+{{ form.start }}
+<main class="main lower-mypage">
+    <div class="container mt-30 mb-20">
+        <div class="step-section">
+            <div class="step-wrapper step4">
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+                <p class="mt-20">{{'Please enter your registered e-mail address and Member ID. We will send you an e-mail containing the URL for resetting the e-mail address you entered.'|tf}}</p>
+                <div class="form-col1">
+                    <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontForgotEmail') }}</h4>
+                    <div class="form-group text-left {{ form.fieldsets.forgot.elements.email.errorClass }}">
+                        {{ form.fieldsets.forgot.elements.email.error | saferaw }}
+                        {{ form.fieldsets.forgot.elements.email | saferaw }}
+                    </div>
+                    <h4 class="mt-20">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontLogin') }}</h4>
+                    <div class="form-group text-left {{ form.fieldsets.forgot.elements.login.errorClass }}">
+                        {{ form.fieldsets.forgot.elements.login.error | saferaw }}
+                        {{ form.fieldsets.forgot.elements.login | saferaw }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="cv-area">
+        {{ form.elements.submit | saferaw }}
+    </div>
+</main>
+{% do form.end %}
+

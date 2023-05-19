@@ -1,0 +1,47 @@
+<?php
+use {{useEntityModel}};
+$form  = $self->getForm();
+?>
+<div class="row">
+<div class="col-lg-12">
+    <h1 class="page-header"><?=$title?></h1>
+</div>
+<!-- /.col-lg-12 -->
+</div>
+<div class="row">
+<div class="col-md-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <?php $form->start(); ?>
+            <?= $form->{{entity|lcfirst}}->{{EntityIdLabel}}; ?>
+            <fieldset>
+{% for name, property in EntityPropertyList if property.exclude != true %}
+{% if name != EntityIdLabel %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group <?= $form->{{entity|lcfirst}}->{{name}}->errorClass; ?>">
+                            <label><?= {{EntityModel}}::getPropertyLabel('{{name}}'); ?></label>
+                            <?= $form->{{entity|lcfirst}}->{{name}}; ?>
+                            <?= $form->{{entity|lcfirst}}->{{name}}->error; ?>
+                        </div>
+                    </div>
+                </div>
+{% endif %}
+{% endfor %}
+            </fieldset>
+            <fieldset>
+                <?=$self->getContainer('SubForm')->getContent(); ?>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-12">
+                        <?= $form->reset; ?>
+                        <?= $form->submit; ?>
+                    </div>
+                </div>
+            </fieldset>
+            <?php $form->end(); ?>
+        </div>
+    </div>
+</div>
+</div>

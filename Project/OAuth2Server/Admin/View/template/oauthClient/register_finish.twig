@@ -1,0 +1,34 @@
+{% set ListController = 'Project\\OAuth2Server\\Admin\\Controller\\OauthClient\\ListController'%}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                <h3 class="text-center">登録完了しました</h3>
+                <hr class="m-t-20 m-b-40">
+                <div class="text-center">
+                  client_id: <code>{{client.oauthClientId}}</code>
+                </div>
+                <div class="text-center">
+                  client_secret: <code>{{client.password}}</code>
+                  <br/><br/>
+                  <span class="alert alert-warning">
+                    client_secretはシステム上保存しないので、すぐメモーしてください。
+                  </span>
+                </div>
+                <hr class="m-t-20 m-b-40">
+                <div class="col-md-4 col-md-offset-4">
+                    <a href="{{ self.Router.linkto(ListController) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+                </div>
+                <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

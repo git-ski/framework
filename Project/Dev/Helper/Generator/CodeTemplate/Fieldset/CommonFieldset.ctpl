@@ -1,0 +1,40 @@
+<?php
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Fieldset;
+
+use Std\FormManager\Fieldset;
+use Std\FormManager\Element;
+use Std\ValidatorManager\ValidatorInterface;
+
+/**
+ * {{action}}Fieldset
+ */
+class {{action}}Fieldset extends Fieldset
+{
+    protected $name = '{{action|lcfirst}}';
+
+    /**
+     * getDefaultFieldset
+     *
+     * @return array
+     */
+    public function getDefaultFieldset() : array
+    {
+        return [
+            '{{action|lcfirst}}' => [
+                'type'      => Element\Text::class,
+                'options'   => [
+                ],
+                'inputSpecification' => [
+                    'required'      => true,
+                    'validators'    => [
+                        [
+                            'name'  => 'NotEmpty',
+                        ],
+                    ]
+                ]
+            ]
+        ];
+    }
+}

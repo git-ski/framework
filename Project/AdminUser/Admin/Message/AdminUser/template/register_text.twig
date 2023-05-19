@@ -1,0 +1,17 @@
+{% set AdminLoginController = 'Project\\AdminUser\\Admin\\Controller\\LoginController' %}
+{{admin.adminName}} 様
+
+WEB予約システムの管理者として登録が完了しました。
+{% if admin.tempPasswordFlag %}
+下記仮パスワードを発行しました。
+{% endif %}
+
+ID: {{ admin.login }}
+{% if admin.tempPasswordFlag %}
+PW: {{ admin.adminPassword }}
+管理画面: {{ Uri.scheme}}://{{ Uri.host }}{{ self.router.linkto(AdminLoginController) }} にログインしてパスワードを変更してください。
+{% endif %}
+
+お心当たりのない場合は、破棄してください。
+
+{{ self.containers.Signature.content | saferaw }}

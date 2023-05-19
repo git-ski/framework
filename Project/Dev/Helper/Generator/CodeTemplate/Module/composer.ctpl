@@ -1,0 +1,22 @@
+{
+    "name": "gitski/:package",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        ":package"
+    ],
+    "autoload": {
+        "psr-4": {
+            "{{module|ucfirst|replace({'\\':'\\\\'})}}\\": "./"
+        },
+        "files": ["module.php"]
+    },
+    "minimum-stability": "dev",
+    "require": {
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.0"
+        }
+    }
+}

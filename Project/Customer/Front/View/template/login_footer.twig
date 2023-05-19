@@ -1,0 +1,4 @@
+{% set TermsController = 'Project\\Pages\\Front\\Controller\\Pages\\TermsController' %}
+{% set PrivacyController = 'Project\\Pages\\Front\\Controller\\Pages\\PrivacyController' %}
+<li class="foot-nav-item"><a href="{{self.router.linkto(TermsController)}}">{{'Terms of service'|tf}}</a></li>
+<li class="foot-nav-item"><a href="{{self.router.linkto(PrivacyController)}}">{{'Privacy Policy'|tf}}</a></li>

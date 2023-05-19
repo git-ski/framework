@@ -1,0 +1,86 @@
+<?php
+/**
+ * PHP version 7
+ * File {{action}}ViewModel.php
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}};
+
+use Std\ViewModel\FormViewModel;
+use Project\Base\Front\View\Layout\FrontPageLayout;
+use {{module|ucfirst}}\{{type|ucfirst}}\Fieldset\{{fieldset}};
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\{{controller}};
+use Project\Base\Front\View\ViewModel\BreadcrumbViewModel;
+
+/**
+ * Class {{action}}ViewModel
+ *
+ * @category ViewModel
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{viewModel}} extends FormViewModel
+{
+    protected $template = '/template/{{namespace|lcfirst}}/{{template}}.twig';
+
+    protected $config = [
+        'layout' => FrontPageLayout::class,
+        'scripts' => [
+        ],
+        'styles' => [
+
+        ],
+        'container' => [
+            'Breadcrumb' => [
+                [
+                    'viewModel' => BreadcrumbViewModel::class,
+                    'data'      => [
+                        'breadcrumbs' => [
+                            {{controller}}::class
+                        ]
+                    ]
+                ]
+            ]
+        ]
+    ];
+
+    protected $fieldset = [
+        {{fieldset}}::class
+    ];
+
+    public $listeners = [
+        self::TRIGGER_BEFORE_RENDER => 'onRender',
+    ];
+
+    /**
+     * Method GetTemplateDir
+     *
+     * @return string templateDir
+     */
+    public function getTemplateDir(): string
+    {
+        return __DIR__ . '/..{{ns}}';
+    }
+
+    /**
+     * Method onRender
+     *
+     * @return void
+     */
+    public function onRender(): void
+    {
+
+        $data = $this->getData();
+        $form = $this->getForm();
+        $form->setData($data);
+    }
+}

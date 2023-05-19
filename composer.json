@@ -39,12 +39,6 @@
         ]
     },
     "scripts": {
-        "post-package-install": [
-            "Migrations\\ModuleHandler::postPackageInstall"
-        ],
-        "pre-package-uninstall": [
-            "Migrations\\ModuleHandler::prePackageUninstall"
-        ],
         "build": [
             "@composer dumpautoload -o"
         ],
@@ -85,12 +79,6 @@
             "php vendor/bin/security-checker security:check composer.lock"
         ]
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://git-ski.github.io/packages/"
-        }
-    ],
     "require": {
         "psr/container": "*",
         "psr/log": "*",
@@ -113,9 +101,11 @@
         "laminas/laminas-mail": "*",
         "laminas/laminas-httphandlerrunner": "*",
         "laminas/laminas-psr7bridge": "*",
+        "laminas/laminas-cache-storage-adapter-memory": "*",
         "laminas/laminas-paginator": "*",
         "symfony/filesystem": "*",
         "symfony/process": "*",
+        "symfony/inflector": "*",
         "symfony/lock": "*",
         "symfony/yaml": "*",
         "symfony/console": "*",
@@ -138,10 +128,13 @@
         "twig/twig": "*",
         "ramsey/uuid": "*",
         "paragonie/csp-builder": "*",
-        "ezimuel/php-secure-session": "*",
         "endroid/qr-code": "*",
         "tecnickcom/tcpdf": "*",
-        "laminas/laminas-dependency-plugin": "^1.0"
+        "laminas/laminas-dependency-plugin": "*",
+        "php-http/message-factory": "^1.1",
+        "maximebf/debugbar": "^1.15",
+        "league/oauth2-server": "^7",
+        "doctrine/inflector": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -162,6 +155,10 @@
         "ext-gd": "*"
     },
     "config": {
-        "optimize-autoloader": true
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "laminas/laminas-dependency-plugin": true,
+            "php-http/discovery": true
+        }
     }
 }

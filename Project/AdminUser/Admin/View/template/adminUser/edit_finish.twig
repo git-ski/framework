@@ -1,0 +1,22 @@
+{% set ListController = "Project\\AdminUser\\Admin\\Controller\\AdminUser\\ListController" %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="white-box">
+                <h3 class="text-center">編集完了しました</h3>
+                <div class="m-b-40"></div>
+                <hr class="m-t-20 m-b-40">
+                <div class="col-md-4 col-md-offset-4">
+                    <a href="{{ self.Router.linkto(ListController) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+{% set LoginController = 'Project\\Customer\\Front\\Controller\\Login\\LoginController' %}
+{% set form = self.form %}
+<main class="main lower-mypage">
+
+    <div class="container mt-30 mb-20">
+
+        <div class="step-section">
+            <div class="step-wrapper step4">
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+                <h3 class="heading-center mt-40">{{'Setting complete'|tf}}</h3>
+                <p class="mt-20">{{'Password resetting is completed. Please login with your new password from next time'|tf}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cv-area">
+        <a href="{{ self.Router().linkto(LoginController) }}">
+            <button class="cv-area-button">{{'Log In'|tf}}</button>
+        </a>
+    </div>
+</main>

@@ -1,0 +1,36 @@
+<?php
+/**
+ * PHP version 7
+ * File DeleteController.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Std\EntityManager\EntityInterface;
+use {{useEntityModel}};
+
+/**
+ * Class DeleteController
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class DeleteModel extends {{EntityModel}}
+{
+    public function delete($idOr{{EntityClass}}) : EntityInterface
+    {
+
+
+        return parent::delete($idOr{{EntityClass}});
+    }
+}

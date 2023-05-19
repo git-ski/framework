@@ -1,0 +1,133 @@
+<?php
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Fieldset;
+
+use Std\FormManager\Fieldset;
+use Std\FormManager\Element;
+use Std\ValidatorManager\ValidatorInterface;
+use {{useEntityModel}};
+
+/**
+ * {{EntityClass}}ListFieldset Fieldset
+ */
+class {{EntityClass}}ListFieldset extends Fieldset
+{
+    protected $name = '{{entity|lcfirst}}';
+
+    /**
+     * getDefaultFieldset
+     *
+     * @return array
+     */
+    public function getDefaultFieldset() : array
+    {
+        return [
+            'keyword' => [
+                'type' => Element\Text::class,
+                'options' => [
+                ],
+                'inputSpecification' => [
+                    'required' => false,
+                    'filters' => [
+                        [
+                            'name' => 'Laminas\\Filter\\StringTrim'
+                        ],
+                    ],
+                    'validators' => [
+                    ]
+                ],
+                'attrs' => [
+                    'class'       => 'form-control nolanguage',
+                    'placeholder' => 'Keyword',
+                ],
+            ],
+{% for name, property in EntityPropertyList|filter(property => property.type != 'password' and property.exclude != true) %}
+{% if name != EntityIdLabel %}
+            '{{name}}' => [
+{% if property.type == "checkbox" %}
+                'type' => Element\Checkbox::class,
+{% elseif property.type == "select" or property.type == "selectJoin" %}
+                'type' => Element\Select::class,
+{% elseif property.type == "datetime" %}
+                'type' => Element\DateTime::class,
+{% elseif property.type == "date" %}
+                'type' => Element\Date::class,
+{% elseif property.type == "time" %}
+                'type' => Element\Time::class,
+{% else %}
+                'type' => Element\Text::class,
+{% endif %}
+                'options' => [
+{% if property.type == "checkbox" or property.type == "select" %}
+                    'value_options' => {{EntityModel}}::getPropertyValueOptions('{{name}}')
+{% elseif property.type == "selectJoin" %}
+                    'value_options' => {{EntityModel}}::get{{name}}Objects('{{name}}')
+{% endif %}
+                ],
+                'inputSpecification' => [
+                    'required' => false,
+                    'filters' => [
+{% if property.type == "string" %}
+                        [
+                            'name' => 'Laminas\\Filter\\StringTrim'
+                        ],
+{% endif %}
+{% if property.type == "datetime" or property.type == "date" or property.type == "time" %}
+                        [
+                            'name'    => 'DateTimeFormatter',
+                            'options' => [
+{% if property.type == "datetime" %}
+                                'format' => 'Y/m/d H:i:s'
+{% elseif property.type == "date" %}
+                                'format' => 'Y/m/d'
+{% elseif property.type == "time" %}
+                                'format' => 'H:i:s'
+{% endif %}
+                            ]
+                        ],
+{% endif %}
+                    ],
+                    'validators' => [
+{% if property.type == "checkbox" or property.type == "select" %}
+                        [
+                            'name'    => 'Explode',
+                            'options' => [
+                                'validator' =>  [
+                                    'name' => 'InArray',
+                                    'options' => [
+                                        'haystack' => {{EntityModel}}::getPropertyHaystack('{{name}}')
+                                    ]
+                                ]
+                            ]
+                        ],
+{% elseif property.type == "selectJoin" %}
+                        [
+                            'name'    => 'Explode',
+                            'options' => [
+                                'validator' =>  [
+                                    'name' => 'InArray',
+                                    'options' => [
+                                        'haystack' => {{EntityModel}}::get{{name}}ObjectsHaystack('{{name}}')
+                                    ]
+                                ]
+                            ]
+                        ],
+{% endif %}
+{% if property.type == "email" %}
+                        [
+                            'name' => 'EmailAddress'
+                        ],
+{% endif %}
+                    ]
+                ],
+                'attrs' => [
+                    'class'       => 'form-control nolanguage',
+                    'placeholder' => {{EntityModel}}::getPropertyLabel('{{name}}'),
+                ],
+            ],
+{% endif %}
+{% endfor %}
+        ];
+    }
+}

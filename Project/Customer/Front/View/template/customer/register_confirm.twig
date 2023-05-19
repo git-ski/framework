@@ -1,0 +1,98 @@
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set form = self.form %}
+
+<main class="main lower-mypage">
+    {{ form.start }}
+    {{ form.fieldsets.customer.elements.customerId | saferaw }}
+        <div class="container mt-30 mb-20">
+            <div class="step-section">
+                <div class="step-wrapper step5">
+                    {{ self.getContainer('Steps').getContent() | saferaw }}
+                    <p class="text-center mt-20">{{'Please confirm the input contents and click "Register" button if you do not mind.'|tf}}<br>{{'To change, please click "Back" button.'|tf}}</p>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form-section">
+                    <table class="table-info">
+                        <tbody>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerNameSei') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.nameSei | saferaw }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerNameMei') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.nameMei | saferaw }}</td>
+                            </tr>
+                            {% if isLocaleJapan %}
+                                <tr>
+                                    <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerKanaSeiConfirm') }}</th>
+                                    <td>{{ form.fieldsets.customer.elements.kanaSei | saferaw }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerKanaMeiConfirm') }}</th>
+                                    <td>{{ form.fieldsets.customer.elements.kanaMei | saferaw }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerCountry') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.Country | saferaw }}</td>
+                            </tr>
+
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerZipCdConfirm') }}</th>
+                                <td>
+                                  〒{{ form.fieldsets.customer.elements.zipCd | saferaw }}<br>
+                                  {{ form.fieldsets.customer.elements.Prefecture | saferaw }} {{ form.fieldsets.customer.elements.address01 | saferaw }} {{ form.fieldsets.customer.elements.address02 | saferaw }} {{ form.fieldsets.customer.elements.address03 | saferaw }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-section">
+                    <table class="table-info">
+                        <tbody>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerPhone') }}</th>
+                                <td>
+                                    {{ form.fieldsets.customer.elements.phone | saferaw }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerBirthDate') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.birthDateYear | saferaw }} / {{ form.fieldsets.customer.elements.birthDateMonth | saferaw }} / {{ form.fieldsets.customer.elements.birthDateDay | saferaw }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'sexTypeId') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.sexTypeId | saferaw }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'mailmagazineReceiveFlag') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.mailmagazineReceiveFlag | saferaw }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontEmail') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.email | saferaw }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontLogin') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.login | saferaw }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerPassword') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.customerPassword | saferaw }}</td>
+                            </tr>
+                            <tr>
+                                <th>{{ CustomerModel|ProxyStatic('getPropertyLabel', 'frontCustomerPasswordConfirm') }}</th>
+                                <td>{{ form.fieldsets.customer.elements.customerPasswordConfirm | saferaw }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="btn-container">
+            {{ form.elements.reset | saferaw }}
+            {{ form.elements.submit | saferaw }}
+        </div>
+    {% do form.end %}
+</main>

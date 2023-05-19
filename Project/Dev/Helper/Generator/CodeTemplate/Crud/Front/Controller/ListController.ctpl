@@ -1,0 +1,64 @@
+<?php
+/**
+ * PHP version 7
+ * File ListController.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Project\Base\Front\Controller\AbstractController;
+use Std\ViewModel\ViewModelManager;
+use {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}}\ListViewModel;
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\ListModel as {{EntityClass}}ListModel;
+
+/**
+ * Class ListController
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class ListController extends AbstractController
+{
+    /**
+     * Method index
+     *
+     * @return ListViewModel
+     */
+    public function index(): ListViewModel
+    {
+        ${{EntityClass}}ListModel = $this->getObjectManager()->get({{EntityClass}}ListModel::class);
+        return $this->getViewModelManager()->getViewModel([
+            'viewModel' => ListViewModel::class,
+            'data'      => [
+                '{{entity|lcfirst}}' => ${{EntityClass}}ListModel->getList(),
+            ],
+        ]);
+    }
+
+    /**
+     * Method getPageInfo
+     *
+     * @return Array
+     */
+    public static function getPageInfo(): array
+    {
+        return [
+            'description'   => '{{EntityClass}} 一覧',
+            'priority'      => 1,
+            'menu'          => true,
+            'icon'          => '<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>',
+            'group'         => '{{EntityClass}} 管理',
+            'groupIcon'     => '<i class="mdi mdi-av-timer fa-fw" data-icon="v"></i>',
+        ];
+    }
+}

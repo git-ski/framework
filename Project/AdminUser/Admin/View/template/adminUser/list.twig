@@ -1,0 +1,90 @@
+{% set RegisterController = 'Project\\AdminUser\\Admin\\Controller\\AdminUser\\RegisterController' %}
+{% set EditController = 'Project\\AdminUser\\Admin\\Controller\\AdminUser\\EditController' %}
+{% set DeleteController = 'Project\\AdminUser\\Admin\\Controller\\AdminUser\\DeleteController' %}
+{% set OtherPasswordController = 'Project\\AdminUser\\Admin\\Controller\\AdminUser\\OtherPasswordController' %}
+{% set AdminModel = 'Project\\AdminUser\\Model\\AdminModel' %}
+{% set AdminController = 'Project\\AdminUser\\Api\\Controller\\AdminController' %}
+{% set form = self.form %}
+
+{{ 'FlashMessage' | flash | tf | alert }}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                {{ form.start }}
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <div class="form-line">
+                            {{ form.fieldsets.admin.elements.keyword | saferaw }}
+                        </div>
+                    </div>
+                    {% if self.Router.linkto(RegisterController) %}
+                    <div class="col-sm-3">
+                        <div class="text-right">
+                            <a href="{{ self.Router.linkto(RegisterController) }}" class="btn btn-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i> 新規作成</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-2">{{ form.elements.submit.with({class : 'btn btn-block btn-primary'}) | saferaw }}</div>
+                    <div class="col-sm-5"></div>
+                </div>
+                {{ form.end}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="body">
+                <table width="100%"
+                    class="table color-table info-table dataTables"
+                    data-wrapper="section#main"
+                    data-form="{{ form.id }}"
+                    data-fieldset="{{ form.fieldsets.admin.name }}"
+                    data-api="{{ self.Router.linkto(AdminController) }}"
+                    data-orderby="{{ orderBy | json_encode() }}">
+                    <thead>
+                        <tr>
+                            <th data-sort="adminId">{{ AdminModel|ProxyStatic('getPropertyLabel', 'adminId') }}</th>
+                            <th data-sort="adminName">{{ AdminModel|ProxyStatic('getPropertyLabel', 'adminName') }}</th>
+                            <th data-sort="email">{{ AdminModel|ProxyStatic('getPropertyLabel', 'email') }}</th>
+                            <th data-sort="lastLoginDate">{{ AdminModel|ProxyStatic('getPropertyLabel', 'lastLoginDate') }}</th>
+                            <th data-sort="Role">{{ AdminModel|ProxyStatic('getPropertyLabel', 'Role') }}</th>
+                            <th data-sort="group">{{ AdminModel|ProxyStatic('getPropertyLabel', 'group') }}</th>
+                            <th class="col-md-2">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, Admin in admin %}
+                            <tr class="{{ index % 2 ? 'even' : 'odd' }}">
+                                <td>{{Admin.adminId}}</td>
+                                <td>{{Admin.adminName}}</td>
+                                <td>{{Admin.email}}</td>
+                                <td>{{Admin.lastLoginDate}}</td>
+                                <td>{{Admin.Role.role}}</td>
+                                <td>{{Admin.Group.name}}</td>
+                                <td class="center">
+                                    {% if self.Router.linkto(EditController) %}
+                                        <a href="{{self.Router.linkto(EditController, Admin.adminId)}}" class="btn btn-primary"> 編集</a>
+                                    {% endif %}
+                                    {% if self.Router.linkto(OtherPasswordController) %}
+                                        <a href="{{self.Router.linkto(OtherPasswordController, Admin.adminId)}}" class="btn btn-info"> パスワード変更</a>
+                                    {% endif %}
+                                    {% if self.Router.linkto(DeleteController) %}
+                                        <a href="{{self.Router.linkto(DeleteController, Admin.adminId)}}" class="btn btn-danger"> 削除</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row">
+                    {{ self.getContainer('Paginator').getContent() | saferaw }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

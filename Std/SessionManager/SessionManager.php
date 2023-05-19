@@ -63,7 +63,7 @@ class SessionManager implements
     {
         if ($this->SessionManager === null) {
             $config = $this->getConfigManager()->getConfig('session');
-            $storage = StorageFactory::factory($config['storage']);
+            $storage = new \Laminas\Cache\Storage\Adapter\Memory();
             $saveHandler = new Cache($storage);
             $SessionConfig = new SessionConfig();
             $config['options'] = array_merge($config['options'], $this->secureOptions);

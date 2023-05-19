@@ -1,0 +1,20 @@
+{% set PasswordController = "Project\\AdminUser\\Admin\\Controller\\AdminUser\\PasswordController" %}
+{% set LogoutController = "Project\\AdminUser\\Admin\\Controller\\LogoutController" %}
+<div class="user-info">
+    <div class="info-container">
+        <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{adminUser.adminName}}
+        </div>
+        <div class="email">{{adminUser.email}}</div>
+        <div class="btn-group user-helper-dropdown">
+            <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+            <ul class="dropdown-menu pull-right">
+                <li><a href="{{ self.router.linkto(PasswordController, adminUser.adminId)}}"><i class="material-icons">person</i>パスワード変更</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/admin_reservation_backend_manual.pdf"><i class="material-icons">book</i>マニュアル</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{{ self.router.linkto(LogoutController)}}"><i class="material-icons">logout</i>ログアウト</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

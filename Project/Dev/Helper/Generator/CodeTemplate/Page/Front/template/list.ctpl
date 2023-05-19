@@ -1,0 +1,28 @@
+{% if useEntityModel %}
+[% set {{EntityModel}} = '{{useEntityModel}}' %]
+{% endif %}
+<div class="container-fluid">
+    [[self.containers.Breadcrumb.content | saferaw]]
+    [% for row in rows %]
+  <div class="row">
+    [% for item in row %]
+
+    <div class="col-md-4 col-sm-4">
+        <div class="white-box">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <h3 class="box-title m-b-0"> 項目タイトル </h3>
+                    <small> 項目サブタイトル </small>
+                    <p> </p>
+                    <div>
+                      項目内容
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    [% endfor %]
+  </div>
+  [% endfor %]
+</div>

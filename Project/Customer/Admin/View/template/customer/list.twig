@@ -1,0 +1,96 @@
+{% set RegisterController = 'Project\\Customer\\Admin\\Controller\\Customer\\RegisterController' %}
+{% set EditController = 'Project\\Customer\\Admin\\Controller\\Customer\\EditController' %}
+{% set DeleteController = 'Project\\Customer\\Admin\\Controller\\Customer\\DeleteController' %}
+{% set CustomerModel = 'Project\\Customer\\Model\\CustomerModel' %}
+{% set form = self.form %}
+{% set ApiListController = 'Project\\Customer\\Api\\Controller\\CustomerListController' %}
+
+{{ 'FlashMessage' | flash | tf | alert }}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                {{ form.start }}
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <div class="form-line">
+                            {{ form.fieldsets.customer.elements.keyword | saferaw }}
+                        </div>
+                    </div>
+                    {% if self.Router.linkto(RegisterController) %}
+                    <div class="col-sm-3">
+                        <div class="text-right">
+                            <a href="{{ self.Router.linkto(RegisterController) }}" class="btn btn-danger"><i class="fa fa-plus-circle" aria-hidden="true"></i> 新規作成</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-2">{{ form.elements.submit.with({class : 'btn btn-block btn-primary'}) | saferaw }}</div>
+                    <div class="col-sm-2">{{ form.fieldsets.customer.elements.exportCsv.with({class : 'btn btn-block btn-success'}) | saferaw }}</div>
+                    <div class="col-sm-4"></div>
+                </div>
+                {{ form.end}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="body">
+                <table width="100%"
+                    class="table color-table info-table dataTables"
+                    data-wrapper="section#main"
+                    data-form="{{ form.id }}"
+                    data-fieldset="{{ form.fieldsets.customer.name }}"
+                    data-api="{{ self.Router.linkto(ApiListController) }}"
+                    data-orderby="{{ orderBy | json_encode() }}">
+                    <thead>
+                        <tr>
+                            <th data-sort="customerNo">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'customerNo') }}</th>
+                            <th data-sort="nameSei">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'nameSei') }}</th>
+                            <th data-sort="nameMei">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'nameMei') }}</th>
+                            <th data-sort="zipCd">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'zipCd') }}</th>
+                            <th data-sort="Country">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'Country') }}</th>
+                            <th data-sort="Prefecture">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'Prefecture') }}</th>
+                            <th data-sort="email">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'email') }}</th>
+                            <th data-sort="phone">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'phone') }}</th>
+                            <th data-sort="birthDate">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'birthDate') }}</th>
+                            <th data-sort="lastLogintDatetime">{{ CustomerModel|ProxyStatic('getPropertyLabel', 'lastLogintDatetime') }}</th>
+                            <th class="col-md-2">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, Customer in customer %}
+                            <tr class="{{ index % 2 ? 'even' : 'odd' }}">
+                                <td>{{ Customer.customerNo }}</td>
+                                <td>{{ Customer.nameSei }}</td>
+                                <td>{{ Customer.nameMei }}</td>
+                                <td>{{ Customer.zipCd }}</td>
+                                <td>{{ Customer.Country }}</td>
+                                <td>{{ Customer.Prefecture }}</td>
+                                <td>{{ Customer.email }}</td>
+                                <td>{{ Customer.phone }}</td>
+                                <td>{{ Customer.birthDate | replace({'-': '/'}) }}</td>
+                                <td>{{ Customer.lastLogintDatetime  | replace({'-': '/'}) }}</td>
+                                <td class="center">
+                                    {% if self.Router.linkto(EditController) %}
+                                        <a href="{{ self.Router.linkto(EditController, Customer.customerId) }}" class="btn btn-primary"> 編集</a>
+                                    {% endif %}
+                                    {% if self.Router.linkto(DeleteController) %}
+                                        <a href="{{ self.Router.linkto(DeleteController, Customer.customerId) }}" class="btn btn-danger"> 削除</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row">
+                    {{ self.getContainer('Paginator').getContent() | saferaw }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

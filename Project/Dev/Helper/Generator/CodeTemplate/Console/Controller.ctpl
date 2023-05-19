@@ -1,0 +1,40 @@
+<?php
+/**
+ * PHP version 7
+ * File {{controller}}.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Std\Controller\AbstractConsole;
+
+class {{controller}} extends AbstractConsole
+{
+
+    public function index($args = null)
+    {
+
+    }
+
+    public function getDescription()
+    {
+        return 'コマンドの簡易説明';
+    }
+
+    public function getHelp()
+    {
+        return <<<HELP
+コマンド名
+
+example:
+        コマンドの使い方
+HELP;
+    }
+}

@@ -1,0 +1,211 @@
+<?php
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Fieldset;
+
+use Std\FormManager\Fieldset;
+use Std\FormManager\Element;
+use Std\ValidatorManager\ValidatorInterface;
+use {{useEntity}};
+use {{useEntityModel}};
+use Project\Base\Helper\VocabularyHelper;
+
+/**
+ * {{EntityClass}}RegisterFieldset Fieldset
+ */
+class {{EntityClass}}RegisterFieldset extends Fieldset
+{
+    protected $name = '{{entity|lcfirst}}';
+
+    /**
+     * getDefaultFieldset
+     *
+     * @return array
+     */
+    public function getDefaultFieldset() : array
+    {
+        return [
+{% for name, property in EntityPropertyList|filter(property => not property.exclude) %}
+{% if name == EntityIdLabel %}
+            '{{EntityIdLabel}}' => [
+                'type'      => Element\Id::class,
+                'options'   => [
+                    'target' => {{EntityClass}}::class,
+                    'action' => {{EntityModel}}::ACTION_CREATE
+                ],
+            ],
+{% else %}
+            '{{name}}' => [
+{% if property.type == "checkbox" %}
+                'type' => Element\Radio::class,
+{% elseif property.type == "select" or property.type == "selectJoin" %}
+                'type' => Element\Select::class,
+{% elseif property.type == "datetime" %}
+                'type' => Element\DateTime::class,
+{% elseif property.type == "date" %}
+                'type' => Element\Date::class,
+{% elseif property.type == "time" %}
+                'type' => Element\Time::class,
+{% elseif property.type == "password" %}
+                'type' => Element\Password::class,
+{% else %}
+                'type' => Element\Text::class,
+{% endif %}
+                'options' => [
+{% if property.type == "checkbox" or property.type == "select" %}
+                    'value_options' => {{EntityModel}}::getPropertyValueOptions('{{name}}')
+{% elseif property.type == "selectJoin" %}
+                    'value_options' => {{EntityModel}}::get{{name}}Objects()
+{% endif %}
+                ],
+                'inputSpecification' => [
+{% if property.nullable and property.type != 'password' %}
+                    'required' => false,
+{% else %}
+                    'required' => true,
+{% endif %}
+                    'filters' => [
+{% if property.type == "string" or property.type == "password" %}
+                        [
+                            'name' => 'StringTrim'
+                        ],
+{% endif %}
+{% if property.type == "datetime" or property.type == "date" or property.type == "time" %}
+                        [
+                            'name'    => 'DateTimeFormatter',
+                            'options' => [
+{% if property.type == "datetime" %}
+                                'format' => 'Y/m/d H:i:s'
+{% elseif property.type == "date" %}
+                                'format' => 'Y/m/d'
+{% elseif property.type == "time" %}
+                                'format' => 'H:i:s'
+{% endif %}
+                            ]
+                        ],
+{% endif %}
+                    ],
+                    'validators' => [
+{% if not property.nullable %}
+                        [
+                            'name' => 'NotEmpty',
+                        ],
+{% endif %}
+{% if property.type == "checkbox" or property.type == "select" %}
+                        [
+                            'name'    => 'InArray',
+                            'options' => [
+                                'haystack' => {{EntityModel}}::getPropertyHaystack('{{name}}')
+                            ],
+                        ],
+{% elseif property.type == "selectJoin" %}
+                        [
+                            'name'    => 'InArray',
+                            'options' => [
+                                'haystack' => {{EntityModel}}::get{{name}}ObjectsHaystack()
+                            ],
+                        ],
+{% endif %}
+{% if property.type == "integer" %}
+                        [
+                            'name' => 'Digits'
+                        ],
+{% endif %}
+{% if property.type == "email" %}
+                        [
+                            'name' => 'EmailAddress'
+                        ],
+{% endif %}
+{% if property.type == "password" and not property.Identical %}
+                        // パスワードのバリデーター
+                        // まずは、全体として許可する文字：AWS仕様
+                        [
+                            'name' => 'Regex',
+                            'options' => [
+                                'pattern' => '/^[\w{{"!@#$%^&*()<>[]{}|_+-="|preg_quote|raw}}]+$/',
+                                'message' => 'PASSWORD_COMMON_ERROR_01',
+                            ],
+                        ],
+                        // そして、全体として許可する長さ：AWS仕様
+                        // ※Bcryptの仕様上、72bytes以降は無視されるが、将来の新しいパスワードアルゴリズムは128サポートする見通し。
+                        // 案件で調整してください。
+                        [
+                            'name' => 'StringLength',
+                            'options' => [
+                                'min' => 8,
+                                'max' => 128,
+                            ]
+                        ],
+                        // そして、個別に必須用バリデーターを足す、個別バリデーターに関しては、同じエラー文言を使う。
+                        [
+                            'name' => 'Regex',
+                            'options' => [
+                                'pattern' => '/[A-Z]+/', // 英大文字
+                                'message' => 'PASSWORD_COMMON_ERROR_02',
+                            ],
+                        ],
+                        [
+                            'name' => 'Regex',
+                            'options' => [
+                                'pattern' => '/[a-z]+/', // 英小文字
+                                'message' => 'PASSWORD_COMMON_ERROR_02',
+                            ],
+                        ],
+                        [
+                            'name' => 'Regex',
+                            'options' => [
+                                'pattern' => '/[0-9]+/', // 数字
+                                'message' => 'PASSWORD_COMMON_ERROR_02',
+                            ],
+                        ],
+                        [
+                            'name' => 'Regex',
+                            'options' => [
+                                'pattern' => '/[{{"!@#$%^&*()<>[]{}|_+-="|preg_quote|raw}}]+/', // 特殊記号
+                                'message' => 'PASSWORD_COMMON_ERROR_02',
+                            ],
+                        ],
+{% endif %}
+{% if property.type == "password" and property.Identical %}
+                        [
+                            'name' => 'Identical',
+                            'options' => [
+                                'token' => '{{property.Identical}}',
+                            ],
+                        ],
+{% endif %}
+{% if property.type == "string" %}
+                        [
+                            'name'    => 'StringLength',
+                            'options' => [
+                                'encoding' => 'UTF-8',
+                                'max' => 32
+                            ]
+                        ],
+{% endif %}
+{% if property.type == "datetime" or property.type == "date" or property.type == "time" %}
+                        [
+                            'name'    => 'Date',
+                            'options' => [
+{% if property.type == "datetime" %}
+                                'format' => 'Y/m/d H:i:s'
+{% elseif property.type == "date" %}
+                                'format' => 'Y/m/d'
+{% elseif property.type == "time" %}
+                                'format' => 'H:i:s'
+{% endif %}
+                            ]
+                        ],
+{% endif %}
+                    ]
+                ],
+                'attrs' => [
+                    'class'       => 'form-control',
+                    'placeholder' => {{EntityModel}}::getPropertyLabel('{{name}}'),
+                ],
+            ],
+{% endif %}
+{% endfor %}
+        ];
+    }
+}

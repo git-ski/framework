@@ -1,0 +1,17 @@
+{% set AdminLoginController = 'Project\\AdminUser\\Admin\\Controller\\LoginController' %}
+<pre>
+{{admin.adminName}} 様
+管理者を登録完了しました。
+
+ID: <strong>{{ admin.login }}</strong>
+
+{% if admin.tempPasswordFlag %}
+登録時パスワード未設定のため、下記仮パスワードを発行しました。
+
+{{ admin.adminPassword }}
+
+<a href="{{ Uri.scheme}}://{{ Uri.host }}{{ self.router.linkto(AdminLoginController) }}">管理画面</a>にログインしてパスワードを変更してください。
+{% endif %}
+
+{{ self.containers.Signature.content | saferaw }}
+</pre>

@@ -1,0 +1,42 @@
+<?php
+/**
+ * PHP version 7
+ * File {{module|ucfirst}}AwareInterface.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}};
+
+/**
+ * Interface {{module|ucfirst}}AwareInterface
+ *
+ * @category Interface
+ * @package  {{module|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+interface {{class|ucfirst}}AwareInterface
+{
+    /**
+     * Method index
+     *
+     * @param {{class|ucfirst}}Interface ${{class|ucfirst}}
+     *
+     * @return Object
+     */
+    public function set{{class|ucfirst}}({{class|ucfirst}}Interface ${{class|ucfirst}});
+
+    /**
+     * Method index
+     *
+     * @return {{class|ucfirst}}Interface ${{class|ucfirst}}
+     */
+    public function get{{class|ucfirst}}() : {{class|ucfirst}}Interface;
+}

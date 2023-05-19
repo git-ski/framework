@@ -1,0 +1,11 @@
+<main class="main lower-mypage">
+    <div class="container mt-30 mb-20">
+        <div class="step-section mb-0">
+            <div class="step-wrapper step5">
+                {{ self.getContainer('Steps').getContent() | saferaw }}
+                <p class="mt-20">{{'We sent an E-mail containing the URL for registration to the E-mail address you entered.'|tf}}</p>
+                <p>{{'Please register from the URL for registration in the E-mail within'|tf}} {{ registerExpiration / 60 }} {{'hours.'|tf}}</p>
+            </div>
+        </div>
+    </div>
+</main>

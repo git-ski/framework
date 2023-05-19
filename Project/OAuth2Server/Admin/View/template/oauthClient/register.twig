@@ -1,0 +1,84 @@
+{% set OauthClientModel = 'Project\\OAuth2Server\\Model\\OauthClientModel' %}
+{% set ListController = 'Project\\OAuth2Server\\Admin\\Controller\\OauthClient\\ListController'%}
+{% set form  = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    {% do form.start() %}
+                    <div class="form-horizontal">
+                        {{ form.fieldsets.oauthClient.elements.oauthClientId | saferaw }}
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.oauthClient.elements.name.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ OauthClientModel|ProxyStatic('getPropertyLabel', 'name')}}
+                                            {% if form.fieldsets.oauthClient.elements.name.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.oauthClient.elements.name | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.oauthClient.elements.name.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.oauthClient.elements.redirectUri.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ OauthClientModel|ProxyStatic('getPropertyLabel', 'redirectUri')}}
+                                            {% if form.fieldsets.oauthClient.elements.redirectUri.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.oauthClient.elements.redirectUri | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.oauthClient.elements.redirectUri.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            {{ self.containers.SubForm.content | saferaw }}
+                        </fieldset>
+
+                        <hr class="m-t-20 m-b-40">
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {% do form.end %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

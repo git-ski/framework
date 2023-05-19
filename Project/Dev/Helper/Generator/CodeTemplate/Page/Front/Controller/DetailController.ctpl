@@ -1,0 +1,86 @@
+<?php
+/**
+ * PHP version 7
+ * File {{controller}}.php
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+declare(strict_types=1);
+
+namespace {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}};
+
+use Project\Base\Front\Controller\AbstractController;
+{% if auth %}
+use Project\Base\Front\Controller\AuthControllerInterface;
+{% endif %}
+use Project\Base\Front\Controller\NotFoundController;
+use Std\ViewModel\ViewModelManager;
+use {{module|ucfirst}}\{{type|ucfirst}}\View\ViewModel\{{namespace|ucfirst}}\{{viewModel}};
+use {{module|ucfirst}}\{{type|ucfirst}}\Controller\{{namespace|ucfirst}}\{{model}} as {{namespace|ucfirst}}{{model}};
+
+/**
+ * Class {{controller}}
+ *
+ * @category Controller
+ * @package  {{module|ucfirst}}\{{type|ucfirst}}
+ * @author  gpgkd906@gmail.com
+ * @license  http://www.opensource.org/licenses/mit-license.php MIT
+ * @link     https://github.com/git-ski/framework
+ */
+class {{controller}} extends AbstractController{% if auth %} implements{% endif %}
+{% if auth %}
+
+    AuthControllerInterface
+{% endif %}
+
+{
+    /**
+     * Method index
+     *
+     * @return {{viewModel}}
+     */
+    public function index($id = null): {{viewModel}}
+    {
+        if (!null === $id) {
+            $this->getRouter()->redirect(NotFoundController::class);
+        }
+        ${{namespace|ucfirst}}{{model}} = $this->getObjectManager()->get({{namespace|ucfirst}}{{model}}::class);
+        $detail = ${{namespace|ucfirst}}{{model}}->get($id);
+        if (!$detail) {
+            $this->getRouter()->redirect(NotFoundController::class);
+        }
+        return $this->getViewModelManager()->getViewModel([
+            'viewModel' => {{viewModel}}::class,
+            'data'      => [
+                'detail' => $detail,
+            ],
+        ]);
+    }
+
+    /**
+     * Method getPageInfo
+     *
+     * @return Array
+     */
+    public static function getPageInfo(): array
+    {
+        return [
+            "description"   => "{{EntityClass}} 詳細",
+            "title"         => "{{EntityClass}} 詳細",
+            "site_name"     => "site_name", // titleの|以降
+            "lower_title"   => "{{EntityClass}} フォーム",
+            "meta_description" => "meta_description",
+            "meta_keywords" => "meta_keywords",
+            "og_title"      => "og_title",
+            "og_description"=> "og_description",
+            "og_site_name"  => "og_site_name",
+            "og_type"       => "article",
+            'priority'      => 2,
+            'menu'          => false,
+        ];
+    }
+}

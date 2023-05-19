@@ -23,9 +23,6 @@ final class Version20180300000001 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql(file_get_contents(realpath(__DIR__ . '/../dumps/m_countries.sql')));
         $this->addSql(file_get_contents(realpath(__DIR__ . '/../dumps/m_prefectures.sql')));
-        $this->addSql(file_get_contents(realpath(__DIR__ . '/../dumps/m_zipcodes_ja.sql')));
-        $this->addSql(file_get_contents(realpath(__DIR__ . '/../dumps/m_vocabulary_headers.sql')));
-        $this->addSql(file_get_contents(realpath(__DIR__ . '/../dumps/m_vocabulary_details.sql')));
     }
 
     public function down(Schema $schema) : void
@@ -35,9 +32,6 @@ final class Version20180300000001 extends AbstractMigration
         $sql = <<<SQL
 DROP TABLE `m_countries`;
 DROP TABLE `m_prefectures`;
-DROP TABLE `m_zipcodes_ja`;
-DROP TABLE `m_vocabulary_details`;
-DROP TABLE `m_vocabulary_headers`;
 SQL;
         $this->addSql($sql);
     }

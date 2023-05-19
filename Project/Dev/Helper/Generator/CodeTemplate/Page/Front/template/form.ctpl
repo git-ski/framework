@@ -1,0 +1,33 @@
+{% if useEntityModel %}
+[% set {{EntityModel}} = '{{useEntityModel}}' %]
+{% endif %}
+[% set form = self.form %]
+<div class="container-fluid">
+[[ self.containers.Breadcrumb.content | saferaw ]]
+
+    <section id="wrapper" class="step-register">
+        <div id="msform">
+        [[ form.start ]]
+        <fieldset>
+{% for name, property in EntityPropertyList if property.type != 'password' and property.exclude != true %}
+            <div class="form-group text-left [[form.fieldsets.{{action|lcfirst}}.elements.{{name}}.errorClass]]">
+                <label class="control-label">[[ {{EntityModel}}|ProxyStatic('getPropertyLabel', '{{name}}')]]</label>
+                [[form.fieldsets.{{action|lcfirst}}.elements.{{name}}]]
+                [[form.fieldsets.{{action|lcfirst}}.elements.{{name}}.error]]
+            </div>
+{% endfor %}
+            [[ self.containers.SubForm.content | saferaw]]
+            <div class="form-group text-left row">
+                <div class="col-md-6">
+                    [[ form.elements.reset | saferaw]]
+                </div>
+                <div class="col-md-6">
+                    [[ form.elements.submit | saferaw]]
+                </div>
+            </div>
+            <br>
+        </fieldset>
+        [[ form.end ]]
+        </div>
+    </section>
+</div>

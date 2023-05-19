@@ -1,0 +1,104 @@
+{% set InquiryTypeModel = 'Project\\Inquiry\\Model\\InquiryTypeModel' %}
+{% set ListController = 'Project\\Inquiry\\Admin\\Controller\\InquiryType\\ListController'%}
+{% set form  = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-body">
+                    {% do form.start() %}
+                    <div class="form-horizontal">
+                    {{ form.fieldsets.inquiryType.elements.inquiryTypeId | saferaw }}
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.inquiryType.elements.type.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ InquiryTypeModel|ProxyStatic('getPropertyLabel', 'type')}}
+                                            {% if form.fieldsets.inquiryType.elements.type.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.inquiryType.elements.type | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.inquiryType.elements.type.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.inquiryType.elements.description.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ InquiryTypeModel|ProxyStatic('getPropertyLabel', 'description')}}
+                                            {% if form.fieldsets.inquiryType.elements.description.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.inquiryType.elements.description | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.inquiryType.elements.description.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group {{ form.fieldsets.inquiryType.elements.showPriority.errorClass }}">
+                                        <label class="control-label col-md-3">
+                                            {{ InquiryTypeModel|ProxyStatic('getPropertyLabel', 'showPriority')}}
+                                            {% if form.fieldsets.inquiryType.elements.showPriority.isRequired %}
+                                                <label class="error">(必須)</label>
+                                            {% endif %}
+                                        </label>
+                                        <div class="col-md-9">
+                                            <div class="form-line">
+                                                {{ form.fieldsets.inquiryType.elements.showPriority | saferaw }}
+                                            </div>
+                                            <label class="error">
+                                                {{ form.fieldsets.inquiryType.elements.showPriority.error | saferaw }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            {{ self.containers.SubForm.content | saferaw }}
+                        </fieldset>
+
+                        <hr class="m-t-20 m-b-40">
+
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-5"></div>
+                                <div class="col-md-2">
+                                    {{ form.elements.submit | saferaw }}
+                                </div>
+                                <div class="col-md-5"></div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    {% do form.end %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

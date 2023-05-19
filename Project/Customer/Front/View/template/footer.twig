@@ -1,0 +1,17 @@
+{% set TopController = 'Project\\Base\\Front\\Controller\\Front\\TopController' %}
+<!--start footer linkarea-->
+<div class="ft-link">
+  <a href="{{self.router.linkto(TopController)}}" class="linktop">{{'Top'|tf}}</a>
+</div>
+<!--END footer linkarea-->
+
+<footer class="footer flex flex-align-center flex-center">
+  <div class="container">
+    <a href="#" class="btn-top" title="ページの先頭へ"><span class="icon ion-ios-arrow-up"></span></a>
+    <ul class="foot-nav">
+      {{self.containers.LoginFooter.content | saferaw}}
+      {{self.containers.MypageFooter.content | saferaw}}
+    </ul>
+
+  </div>
+</footer>

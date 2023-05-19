@@ -1,0 +1,81 @@
+{% set RoleModel = 'Project\\Permission\\Model\\RoleModel' %}
+{% set form = self.form %}
+<section class="content" id="main">
+    <div class="row bg-title">
+        {{self.containers.Breadcrumb.content|saferaw}}
+        <div class="col-md-3">
+            {{ 'FlashMessage' | flash | tf | alert }}
+            <div class="form-group">
+                <a href="{{ self.Router.linkto(ListController, null, {'search':'1'}) }}" class="btn btn-block bg-orange">一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form.start }}
+                    <fieldset>
+                    <ul class="nav customtab nav-tabs rolelist" role="rolelist">
+                    {% for index, group in permissionList %}
+                        <li role="presentation" class="{{ group.active }}"><a href="#{{ group.groupId }}" aria-controls="{{ index }}" role="tab" data-toggle="tab" aria-expanded="true"><span class="hidden-xs"> {{ index }}</span></a></li>
+                    {% endfor %}
+                    </ul>
+                    <div class="tab-content">
+                        {% set permissionCollection = form.fieldsets.configuration.elements.permission %}
+                        {% for index, group in permissionList %}
+                        <div role="tabpanel" class="tab-pane fade {{ group.active }} in" id="{{ group.groupId }}">
+                            <div class="row">
+                                <div class="col-md-4">
+                                </div>
+                                {% for roleId, role in roleList %}
+                                <div class="col-md-1">
+                                    <div class="form-group ">
+                                        <label class="form_label form_checkbox" for="role{{ roleId }}">{{ role }}</label>
+                                        <input type="button" class="btn btn-info perimssion_toggle perimssion_toggle_on" value="全て付与" data-filter=".role{{roleId}}" data-wrapper="#{{ group.groupId }}.tab-pane">
+                                        <input type="button" class="btn btn-info btn-outline perimssion_toggle perimssion_toggle_off" value="全て取消" data-filter=".role{{roleId}}" data-wrapper="#{{ group.groupId }}.tab-pane">
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% for p in group.permissions %}
+                            {% set name = p.name %}
+                            {% set permission = p.permission %}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>{{ name | replace({'Project\\': ''}) }}</label><br/>
+                                </div>
+                                {% for roleId, role in roleList %}
+                                <div class="col-md-1">
+                                    {% set element = attribute(attribute(permissionCollection.fieldsets, roleId).elements, permission) %}
+                                    <div class="form-group {{ element.errorClass }} role{{ roleId }}">
+                                        {{ element | saferaw }}
+                                        {{ element.error | saferaw }}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    </fieldset>
+                    <fieldset>
+                        {{ self.containers.SubForm.Content | saferaw }}
+                    </fieldset>
+                    <hr class="m-t-0 m-b-40 hidden-xs hidden-sm">
+                    <fieldset>
+                        <div class="row">
+                            <div class="col-md-5"></div>
+                            <div class="col-md-2 text-center">
+                                {{ form.elements.submit | saferaw }}
+                            </div>
+                            <div class="col-md-5"></div>
+                        </div>
+                    </fieldset>
+                    {% do form.end %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

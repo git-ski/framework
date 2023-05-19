@@ -1,0 +1,27 @@
+<header class="header">
+
+  <div class="header-navigation">
+    {{ self.layout.containers.Main.items[0].containers.Breadcrumb.content | saferaw }}
+    <div class="header-action-buttons flex flex-end
+         {%if(self.getLayout().getData().isMyPage)%}
+             mypage-home
+         {%endif%}"
+         >
+       {{self.containers.NavbarRight.content | saferaw}}
+    </div>
+
+    <nav class="">
+
+      <div class="header-menu-toggler flex-inline flex-vertical flex-center" data-modal-open="modal-menu">
+        <div class="hamburger flex-align-start">
+          <i></i><i></i><i></i>
+        </div>
+        <span>menu</span>
+      </div>
+
+    </nav>
+  </div>
+
+  <h2 class="lower-title">{{ self.getLayout().getData().pageInfo.lower_title | tf}}</h2>
+
+</header>

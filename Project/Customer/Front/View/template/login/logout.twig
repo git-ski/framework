@@ -1,0 +1,20 @@
+{% set LoginController = 'Project\\Customer\\Front\\Controller\\Login\\LoginController' %}
+<main class="main lower-mypage">
+
+  <div class="container col1">
+    <div class="step-section mb-0">
+      <div class="step-wrapper">
+
+        <h3 class="heading-center">{{'You logged out.'|tf}}</h3>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="">
+
+    <a class="button button-contact" href="{{ self.Router().linkto(LoginController) }}">{{'Log In'|tf}}</a>
+
+  </div>
+
+</main>

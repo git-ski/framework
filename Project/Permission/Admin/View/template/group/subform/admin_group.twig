@@ -1,0 +1,19 @@
+{% set AdminGroupRModel = 'Project\\Permission\\Model\\AdminGroupRModel' %}
+{% set form = self.form %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="form-group {{ form.group.groups.errorClass }}">
+            <label class="col-md-4 control-label">
+                {{ AdminGroupRModel|ProxyStatic('getPropertyLabel', 'groupId') }}                                       {% if form.fieldsets.group.elements.groups.isRequired %}
+                    <label class="error">(必須)</label>
+                {% endif %}
+            </label>
+            <div class="col-md-8">
+                {{form.fieldsets.group.elements.groups|saferaw}}
+                <label class="error">
+                    {{form.fieldsets.group.elements.groups.error|saferaw}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
