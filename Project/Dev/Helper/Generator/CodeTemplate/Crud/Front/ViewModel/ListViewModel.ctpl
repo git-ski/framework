@@ -67,7 +67,7 @@ class ListViewModel extends FormViewModel
         $data = $this->getData();
         $data['{{entity|lcfirst}}'] = array_map(function (${{EntityClass}}) {
             ${{EntityClass}} = ${{EntityClass}}->toArray();
-{% for name, property in EntityPropertyList if property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
 {% if property.type == "selectJoin" %}
             ${{EntityClass}}['{{name}}'] = ${{EntityClass}}['{{name}}']->get{{name}}Id();
 {% endif %}

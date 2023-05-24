@@ -48,7 +48,7 @@
                     data-orderby="[[ orderBy | json_encode() ]]">
                     <thead>
                         <tr>
-{% for name, property in EntityPropertyList if property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
 {% if name != EntityIdLabel %}
                             <th data-sort="{{name}}">[[ {{EntityModel}}|ProxyStatic('getPropertyLabel', '{{name}}') ]]</th>
 {% endif %}
@@ -59,7 +59,7 @@
                     <tbody>
                         [% for index, {{entity}} in {{entity|lcfirst}} %]
                             <tr class="[[ index % 2 ? 'even' : 'odd' ]]">
-{% for name, property in EntityPropertyList if property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
 {% if name != EntityIdLabel %}
 {% if property.entityIdLabel %}
                                 <td>[[ {{entity}}.{{name}}.{{property.entityIdLabel}} ]]</td>

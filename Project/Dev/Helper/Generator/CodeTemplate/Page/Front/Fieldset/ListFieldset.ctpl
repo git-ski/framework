@@ -23,7 +23,7 @@ class {{EntityClass}}ListFieldset extends Fieldset
     public function getDefaultFieldset() : array
     {
         return [
-{% for name, property in EntityPropertyList if property.type != 'password' and property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.type != 'password' and property.exclude != true) %}
 {% if name != EntityIdLabel %}
             '{{name}}' => [
 {% if property.type == "checkbox" %}

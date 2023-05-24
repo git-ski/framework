@@ -12,7 +12,7 @@ $form  = $self->getForm();
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="tab-pane active">
-{% for name, property in EntityPropertyList if property.type != 'password' and property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.type != 'password' and property.exclude != true) %}
                 <div>
                     <strong><?= {{EntityModel}}::getPropertyLabel('{{name}}'); ?></strong>
                     <p class="m-t-30">

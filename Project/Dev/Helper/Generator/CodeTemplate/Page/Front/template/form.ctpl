@@ -9,7 +9,7 @@
         <div id="msform">
         [[ form.start ]]
         <fieldset>
-{% for name, property in EntityPropertyList if property.type != 'password' and property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.type != 'password' and property.exclude != true) %}
             <div class="form-group text-left [[form.fieldsets.{{action|lcfirst}}.elements.{{name}}.errorClass]]">
                 <label class="control-label">[[ {{EntityModel}}|ProxyStatic('getPropertyLabel', '{{name}}')]]</label>
                 [[form.fieldsets.{{action|lcfirst}}.elements.{{name}}]]

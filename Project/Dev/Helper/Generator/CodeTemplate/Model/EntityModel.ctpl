@@ -58,7 +58,7 @@ class {{EntityModel}} extends AbstractEntityModel implements
 {% endfor %}
         ${{EntityClass}}->fromArray($data);
         $DateTime = $this->getDateTimeForEntity();
-{% for name, property in EntityPropertyList if property.exclude == true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude == true) %}
 {% if property.column == "create_date" or property.column == "update_date"  %}
         ${{EntityClass}}->set{{name|ucfirst}}($DateTime->format('Y-m-d'));
 {% endif %}
@@ -110,7 +110,7 @@ class {{EntityModel}} extends AbstractEntityModel implements
 {% endfor %}
             ${{EntityClass}}->fromArray($data);
             $DateTime = $this->getDateTimeForEntity();
-{% for name, property in EntityPropertyList if property.exclude == true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude == true) %}
 {% if property.column == "create_date" or property.column == "update_date"  %}
             ${{EntityClass}}->set{{name|ucfirst}}($DateTime->format('Y-m-d'));
 {% endif %}
@@ -246,7 +246,7 @@ class {{EntityModel}} extends AbstractEntityModel implements
             $idOr{{EntityClass}}->fromArray($data);
         }
         $DateTime = $this->getDateTimeForEntity();
-{% for name, property in EntityPropertyList if property.exclude == true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude == true) %}
 {% if property.column == "update_date"  %}
         $idOr{{EntityClass}}->set{{name|ucfirst}}($DateTime->format('Y-m-d'));
 {% endif %}
@@ -366,7 +366,7 @@ class {{EntityModel}} extends AbstractEntityModel implements
             unset($data['{{EntityIdLabel}}']);
         }
         // 空白文字列フィルター
-{% for name, property in EntityPropertyList if property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
 {% if name != EntityIdLabel %}
 {% if property.type != "string" and property.virtual != true %}
         if (isset($data['{{name}}']) && '' === $data['{{name}}']) {

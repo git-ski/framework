@@ -28,7 +28,7 @@ $form  = $self->getForm();
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                     <thead>
                         <tr>
-{% for name, property in EntityPropertyList if property.type != 'password' and property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.type != 'password' and property.exclude != true) %}
                             <th><?= {{EntityModel}}::getPropertyLabel('{{name}}'); ?></th>
 {% endfor %}
 {% if useEntityModel %}
@@ -39,7 +39,7 @@ $form  = $self->getForm();
                     <tbody>
                         <?php foreach (${{entity|lcfirst}} as $index => ${{EntityClass}}) : ?>
                             <tr class="<?= $index % 2 ? 'even' : 'odd' ?>">
-{% for name, property in EntityPropertyList if property.type != 'password' and property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.type != 'password' and property.exclude != true) %}
                                 <td><?=${{EntityClass}}['{{name}}']; ?></td>
 {% endfor %}
 {% if useEntityModel %}

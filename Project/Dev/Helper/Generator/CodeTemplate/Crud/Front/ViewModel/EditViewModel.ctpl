@@ -59,7 +59,7 @@ class EditViewModel extends RegisterViewModel
     {
         $data = $this->getData();
         $data['{{entity|lcfirst}}'] = $data['{{entity|lcfirst}}']->toArray();
-{% for name, property in EntityPropertyList if property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
 {% if property.type == "selectJoin" %}
         $data['{{entity|lcfirst}}']['{{name}}'] = $data['{{entity|lcfirst}}']['{{name}}']->get{{name}}Id();
 {% endif %}

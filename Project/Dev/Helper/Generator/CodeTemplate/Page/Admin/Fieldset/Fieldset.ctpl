@@ -23,7 +23,7 @@ class {{fieldset}} extends Fieldset
     public function getDefaultFieldset() : array
     {
         return [
-{% for name, property in EntityPropertyList if property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
 {% if name == EntityIdLabel %}
             '{{EntityIdLabel}}' => [
                 'type'      => Element\Id::class,

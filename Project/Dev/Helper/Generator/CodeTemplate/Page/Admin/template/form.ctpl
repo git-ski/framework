@@ -18,7 +18,7 @@
                         <fieldset>
                             <div class="row">
                                 <div class="col-md-8 inputArea">
-{% for name, property in EntityPropertyList if property.exclude != true %}
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">[[ {{EntityModel}}|ProxyStatic('getPropertyLabel','{{name}}') ]]</label>
                                         <div class="col-md-9">

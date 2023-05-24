@@ -19,7 +19,8 @@
                     <div class="form-horizontal">
                     [[ form.fieldsets.{{entity|lcfirst}}.elements.{{EntityIdLabel}} | saferaw ]]
                         <fieldset>
-{% for name, property in EntityPropertyList if property.exclude != true %}
+
+{% for name, property in EntityPropertyList|filter(property => property.exclude != true) %}
 {% if name != EntityIdLabel %}
                             <div class="row">
                                 <div class="col-md-8">
