@@ -46,7 +46,7 @@ class ScopeRepository implements
         ClientEntityInterface $clientEntity,
         $userIdentifier = null
     ) {
-         (例あり)
+        // (例あり)
         // if ((int) $userIdentifier === 1) {
         //     $scope = new ScopeEntity();
         //     $scope->setIdentifier('email');

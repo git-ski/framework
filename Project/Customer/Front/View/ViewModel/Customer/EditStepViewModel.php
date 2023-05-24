@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Project\Customer\Front\View\ViewModel\Customer;
 
-use Project\Customer\Front\View\ViewModel\Customer\EditStepViewModel;
-
 /**
  * Class EditStepViewModel
  *

@@ -15,7 +15,6 @@ use Std\AclManager\AclManagerAwareInterface;
 use Std\LoggerManager\LoggerManagerAwareInterface;
 use Project\Base\Front\Controller\AbstractController;
 use Project\Base\Front\Controller\ServerErrorController;
-use Symfony\Component\Debug\Debug;
 
 class EventListenerManager extends AbstractEventListenerManager implements
     HttpMessageManagerAwareInterface,

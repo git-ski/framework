@@ -14,7 +14,7 @@ use Std\EntityManager\FactoryInterface;
 use Std\EntityManager\EntityInterface;
 use Doctrine\DBAL\Logging\DebugStack;
 use Std\ViewModel\ViewModelInterface;
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\ErrorHandler\Debug;
 use Std\Renderer\TwigRenderer;
 use Std\ViewModel\LayoutInterface;
 
