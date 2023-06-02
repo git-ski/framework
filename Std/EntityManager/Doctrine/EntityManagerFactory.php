@@ -18,14 +18,15 @@ use Framework\ConfigManager\ConfigManagerAwareInterface;
 use Framework\ObjectManager\ObjectManagerInterface;
 use Std\CacheManager\CacheManagerAwareInterface;
 use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 use Doctrine\Common\Cache\Cache;
-use DoctrineModule\Cache\ZendStorageCache;
+use DoctrineModule\Cache\LaminasStorageCache;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Redis;
-use Memcached;
+
+use Doctrine\DBAL\DriverManager;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
 
 /**
  * Factory EntityManagerFactory
@@ -69,7 +70,8 @@ class EntityManagerFactory implements
             $entityConfig   = Setup::createConfiguration($isDevMode, $proxyDir, $this->getCache());
             $entityConfig->setMetadataDriverImpl($driver);
             $entityConfig->setAutoGenerateProxyClasses($isDevMode);
-            $DoctrineEntityManager          = EntityManager::create($connection, $entityConfig);
+            $Connection = DriverManager::getConnection($connection, $entityConfig);
+            $DoctrineEntityManager          = new EntityManager($Connection, $entityConfig);
             $this->EntityManagerDecorator   = new EntityManagerDecorator($DoctrineEntityManager);
             $this->triggerEvent(
                 self::TRIGGER_ENTITY_MANAGER_CREATED,
@@ -90,8 +92,8 @@ class EntityManagerFactory implements
      */
     private function getCache() : Cache
     {
-        $zendCache = $this->getCacheManager()->getCache(__NAMESPACE__);
-        return new ZendStorageCache($zendCache);
+        $laminasCache = $this->getCacheManager()->getCache(__NAMESPACE__);
+        return new LaminasStorageCache($laminasCache);
     }
 
     /**

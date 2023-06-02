@@ -76,7 +76,7 @@
             "cp .phan/compatibily.config.php .phan/config.php; phan -p -o ./private/compatibily.txt"
         ],
         "security:check": [
-            "php vendor/bin/security-checker security:check composer.lock"
+            "local-php-security-checker --path=./composer.lock"
         ]
     },
     "require": {
@@ -102,19 +102,20 @@
         "laminas/laminas-httphandlerrunner": "*",
         "laminas/laminas-psr7bridge": "*",
         "laminas/laminas-cache-storage-adapter-memory": "*",
+        "laminas/laminas-cache-storage-adapter-redis": "*",
         "laminas/laminas-paginator": "*",
+        "laminas/laminas-servicemanager": "*",
         "symfony/filesystem": "*",
         "symfony/process": "*",
-        "symfony/inflector": "*",
+        "symfony/mailer": "*",
         "symfony/lock": "*",
         "symfony/yaml": "*",
         "symfony/console": "*",
-        "swiftmailer/swiftmailer": "*",
+        "symfony/error-handler": "*",
         "league/csv": "*",
         "league/route": "*",
         "league/omnipay": "*",
         "league/flysystem": "*",
-        "league/flysystem-sftp": "*",
         "league/flysystem-aws-s3-v3": "*",
         "league/flysystem-replicate-adapter": "*",
         "doctrine/orm": "*",
@@ -131,10 +132,10 @@
         "endroid/qr-code": "*",
         "tecnickcom/tcpdf": "*",
         "laminas/laminas-dependency-plugin": "*",
-        "php-http/message-factory": "^1.1",
         "maximebf/debugbar": "^1.15",
         "league/oauth2-server": "^7",
-        "doctrine/inflector": "^2.0"
+        "doctrine/inflector": "^2.0",
+        "laminas/laminas-cache-storage-deprecated-factory": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -145,11 +146,9 @@
         }
     },
     "require-dev": {
-        "symfony/debug": "*",
         "phpunit/phpunit": "*",
         "deployer/deployer": "*",
-        "gpgkd906/code-generator": "*",
-        "sensiolabs/security-checker": "*"
+        "gpgkd906/code-generator": "*"
     },
     "provide": {
         "ext-gd": "*"

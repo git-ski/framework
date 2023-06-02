@@ -18,10 +18,7 @@ use Framework\ObjectManager\ObjectManagerAwareInterface;
 use Framework\ConfigManager\ConfigManagerAwareInterface;
 use Laminas\Cache\Storage\FlushableInterface;
 use Laminas\Cache\Storage\StorageInterface;
-use Laminas\Cache\Storage\Adapter\Memory;
-use Laminas\Cache\Storage\Adapter\Redis;
-use Laminas\Cache\Storage\Plugin\ExceptionHandler;
-use Laminas\ServiceManager\ServiceManager;
+use Laminas\Cache\StorageFactory;
 
 /**
  * Interface CacheManager
@@ -55,10 +52,7 @@ class CacheManager implements
     public function setCache($section, $cacheOrOptions)
     {
         if (!$cacheOrOptions instanceof StorageInterface) {
-            $plugin = new ExceptionHandler();
-            $plugin->getOptions()->setThrowExceptions(false);
-            $cacheOrOptions  = new Memory();
-            $cacheOrOptions->addPlugin($plugin);
+            $cacheOrOptions = StorageFactory::factory($cacheOrOptions);
         }
         $this->cachePool[$section] = $cacheOrOptions;
         return $this;

@@ -6,22 +6,18 @@ return [
     'session' => [
         'storage' => [
             'adapter' => [
-                'name' => 'memory',
+                'name' => 'redis',
                 'options' => [
-                    'namespace' => null,
+                    'server' => [
+                        'host' => 'cache',
+                        'port' => 6379,
+                    ],
+                    'ttl' => 3600,
+                    'namespace' => "session",
+                    'lib_options' => [
+                        \Redis::OPT_SERIALIZER => \Redis::SERIALIZER_PHP,
+                    ],
                 ],
-                // 'name' => 'redis',
-                // 'options' => [
-                //     'server' => [
-                //         'host' => 'session_server',
-                //         'port' => 6379,
-                //     ],
-                //     'ttl' => 3600,
-                //     'namespace' => "session",
-                //     'lib_options' => [
-                //         \Redis::OPT_SERIALIZER => \Redis::SERIALIZER_PHP,
-                //     ],
-                // ],
             ]
         ],
         'options' => [
