@@ -5,5 +5,5 @@ namespace Std\MailerService;
 use Framework\ObjectManager\ObjectManager;
 
 ObjectManager::getSingleton()->export([
-    MailerServiceInterface::class => Swift\MailerService::class,
+    MailerServiceInterface::class => Symfony\MailerService::class,
 ]);
