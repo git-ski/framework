@@ -316,6 +316,17 @@ abstract class AbstractViewModel implements
                 );
             }
         }
+        foreach ($this->containers as $name => $container) {
+            if (!($container instanceof ContainerInterface)) {
+                $containers[$name] = $this->getObjectManager()->create(
+                    function () use ($container) {
+                        return new Container($container, $this);
+                    }
+                );
+            } else {
+                $containers[$name] = $container;
+            }
+        }
         $this->containers = $containers;
         return $this;
     }
@@ -336,7 +347,11 @@ abstract class AbstractViewModel implements
     public function getContainer($name)
     {
         if (!isset($this->containers[$name])) {
-            $this->containers[$name] = new Container([], $this);
+            $this->containers[$name] = $this->getObjectManager()->create(
+                function () {
+                    return new Container([], $this);
+                }
+            );
         }
         return $this->containers[$name];
     }
